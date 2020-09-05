@@ -2,11 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41e70371-00d4-4b59-93ed-e38efec08901" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/config/packages/sensio_framework_extra.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes/annotations.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/CourseController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Course.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/CourseRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/serviceWorker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/setupTests.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,10 +93,72 @@
       <path value="$PROJECT_DIR$/vendor/symfony/redis-messenger" />
       <path value="$PROJECT_DIR$/vendor/symfony/amqp-messenger" />
       <path value="$PROJECT_DIR$/vendor/symfony/doctrine-messenger" />
+      <path value="$PROJECT_DIR$/backend/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/sql-formatter" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/backend/vendor/laminas/laminas-zendframework-bridge" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/migrations" />
+      <path value="$PROJECT_DIR$/backend/vendor/laminas/laminas-code" />
+      <path value="$PROJECT_DIR$/backend/vendor/laminas/laminas-eventmanager" />
+      <path value="$PROJECT_DIR$/backend/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/backend/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/backend/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/backend/vendor/ocramius/proxy-manager" />
+      <path value="$PROJECT_DIR$/backend/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/doctrine-messenger" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/cache-contracts" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/redis-messenger" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/amqp-messenger" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/stopwatch" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/dependency-injection" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/framework-bundle" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/doctrine-bridge" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/maker-bundle" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/messenger" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/dotenv" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/backend/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/flex" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/doctrine-migrations-bundle" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/reflection" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/persistence" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/backend/vendor/webimpress/safe-writer" />
+      <path value="$PROJECT_DIR$/backend/vendor/composer" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/orm" />
     </include_path>
   </component>
   <component name="ProjectId" id="1gn1pesKhelrNnrKIuvvy45O0Rz" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -119,6 +190,7 @@
       <workItem from="1598735728665" duration="3695000" />
       <workItem from="1598884871795" duration="146000" />
       <workItem from="1598886426719" duration="2454000" />
+      <workItem from="1599349395753" duration="126000" />
     </task>
     <servers />
   </component>
