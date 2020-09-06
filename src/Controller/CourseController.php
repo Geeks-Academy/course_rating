@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use http\Client\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,8 +12,7 @@ class CourseController extends AbstractController
     var $courses = array();
 
     /**
-     * @Route("/", name="welcome")
-     * @Method ({"GET","HEAD"})
+     * @Route("/", name="home", methods={"GET"})
      */
     public function welcome()
     {
@@ -21,8 +20,7 @@ class CourseController extends AbstractController
     }
 
     /**
-    * @Route("/courses", name="courses_list")
-     * @Method ({"GET","HEAD"})
+    * @Route("/courses", name="courses_list", methods={"GET"})
     */
     public function coursesList()
     {
@@ -33,27 +31,32 @@ class CourseController extends AbstractController
     }
 
     /**
-     * @Route("/course/add", name="course_add")
-     * @Method ({"POST"})
+     * @Route("/courses", name="course_add, methods={"POST"}")
      */
     public function addCourse() {
         return $this->json(true);
     }
 
     /**
-     * @Route("/course/get/{$id}", name="course_get")
-     * @Method ({"GET","HEAD"})"
+     * @Route("/courses/{$id}", name="course_get", methods={"PUT"})
      */
     public function getCourse(int $id) {
         return $this->json(true);
     }
 
     /**
-     * @Route("/health", name="health")
-     * @Method ({"GET","HEAD"})"
+     * @Route("/health", name="health", methods={"GET"})
      */
     public function getHealth() {
-        return $this->json(true);
+        return new Response($this->json(true),200);
+    }
+
+    /**
+     * @Route("/CourseRatings", name="", methods={"GET"}
+     */
+    public function getCourseRatings() {
+        $courses_ratings = ['test'=>'1','test2'=>'2','test3'=>'3'];
+        return new Response($this->json($courses_ratings),200);
     }
 
 }
