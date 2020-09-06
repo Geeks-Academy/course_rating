@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use http\Client\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CourseController extends AbstractController
@@ -31,7 +31,7 @@ class CourseController extends AbstractController
     }
 
     /**
-     * @Route("/courses", name="course_add, methods={"POST"}")
+     * @Route("/courses", name="course_add", methods={"POST"})
      */
     public function addCourse() {
         return $this->json(true);
@@ -48,15 +48,15 @@ class CourseController extends AbstractController
      * @Route("/health", name="health", methods={"GET"})
      */
     public function getHealth() {
-        return new Response($this->json(true),200);
+        return $this->json(true);
     }
 
     /**
-     * @Route("/CourseRatings", name="", methods={"GET"}
+     * @Route("/CourseRatings", name="course_ratings", methods={"GET"})
      */
     public function getCourseRatings() {
         $courses_ratings = ['test'=>'1','test2'=>'2','test3'=>'3'];
-        return new Response($this->json($courses_ratings),200);
+        return $this->json($courses_ratings);
     }
 
 }
