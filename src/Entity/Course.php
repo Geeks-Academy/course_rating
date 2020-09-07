@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CourseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class Course
      * @ORM\Column(type="string", length=255)
      */
     private $url;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=CourseCharacteristic::class, inversedBy="courses")
+     */
+    private $characteristics;
+
+    public function __construct()
+    {
+        $this->characteristics = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +64,32 @@ class Course
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseCharacteristic[]
+     */
+    public function getCharacteristics(): Collection
+    {
+        return $this->characteristics;
+    }
+
+    public function addCharacteristic(CourseCharacteristic $characteristic): self
+    {
+        if (!$this->characteristics->contains($characteristic)) {
+            $this->characteristics[] = $characteristic;
+        }
+
+        return $this;
+    }
+
+    public function removeCharacteristic(CourseCharacteristic $characteristic): self
+    {
+        if ($this->characteristics->contains($characteristic)) {
+            $this->characteristics->removeElement($characteristic);
+        }
 
         return $this;
     }
