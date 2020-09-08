@@ -23,6 +23,11 @@ class CourseRatingState
      */
     private $state;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $course_rating_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,6 +41,18 @@ class CourseRatingState
     public function setState(string $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getCourseRatingId(): ?int
+    {
+        return $this->course_ratings_id;
+    }
+
+    public function setCourseRatingId(int $course_ratings_id): self
+    {
+        $this->course_ratings_id = $course_rating_id;
 
         return $this;
     }
