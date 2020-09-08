@@ -34,9 +34,15 @@ class Course
      */
     private $characteristics;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CourseTechnology::class, inversedBy="courses")
+     */
+    private $technologies;
+
     public function __construct()
     {
         $this->characteristics = new ArrayCollection();
+        $this->technologies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,6 +95,32 @@ class Course
     {
         if ($this->characteristics->contains($characteristic)) {
             $this->characteristics->removeElement($characteristic);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseTechnology[]
+     */
+    public function getTechnologies(): Collection
+    {
+        return $this->technologies;
+    }
+
+    public function addTechnology(CourseTechnology $technology): self
+    {
+        if (!$this->technologies->contains($technology)) {
+            $this->technologies[] = $technology;
+        }
+
+        return $this;
+    }
+
+    public function removeTechnology(CourseTechnology $technology): self
+    {
+        if ($this->technologies->contains($technology)) {
+            $this->technologies->removeElement($technology);
         }
 
         return $this;
