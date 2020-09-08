@@ -47,10 +47,10 @@ class CourseRatingState
 
     public function getCourseRatingId(): ?int
     {
-        return $this->course_ratings_id;
+        return $this->course_rating_id;
     }
 
-    public function setCourseRatingId(int $course_ratings_id): self
+    public function setCourseRatingId(int $course_rating_id): self
     {
         $this->course_ratings_id = $course_rating_id;
 
