@@ -34,9 +34,15 @@ class Course
      */
     private $characteristics;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CourseTranslation::class, inversedBy="courses")
+     */
+    private $translations;
+
     public function __construct()
     {
         $this->characteristics = new ArrayCollection();
+        $this->translations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,6 +95,32 @@ class Course
     {
         if ($this->characteristics->contains($characteristic)) {
             $this->characteristics->removeElement($characteristic);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseTranslation[]
+     */
+    public function getTranslations(): Collection
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(CourseTranslation $translation): self
+    {
+        if (!$this->translations->contains($translation)) {
+            $this->translations[] = $translation;
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(CourseTranslation $translation): self
+    {
+        if ($this->translations->contains($translation)) {
+            $this->translations->removeElement($translation);
         }
 
         return $this;
