@@ -23,16 +23,6 @@ class CourseRatingState
      */
     private $state;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $course_ratings_id;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=CourseRating::class, mappedBy="courses_id")
-     */
-    private $course_ratings;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -50,43 +40,4 @@ class CourseRatingState
         return $this;
     }
 
-    public function getCourseRatingsId(): ?int
-    {
-        return $this->course_ratings_id;
-    }
-
-    public function setCourseRatingsId(int $course_ratings_id): self
-    {
-        $this->course_ratings_id = $course_ratings_id;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CourseRating[]
-     */
-    public function getCoursesRatings(): Collection
-    {
-        return $this->course_ratings;
-    }
-
-    public function addCourseRating(CourseRating $courseRating): self
-    {
-        if (!$this->course_ratings->contains($courseRating)) {
-            $this->course_ratings[] = $courseRating;
-            $courseRating->addCourseRating($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCourseRating(CourseRating $courseRating): self
-    {
-        if ($this->courseRating->contains($courseRating)) {
-            $this->courseRating->removeElement($courseRating);
-            $courseRating->removeCourseRating($this);
-        }
-
-        return $this;
-    }
 }
