@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CourseRatingStatesRepository;
+use App\Repository\CourseRatingStateRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CourseRatingStatesRepository::class)
+ * @ORM\Entity(repositoryClass=CourseRatingStateRepository::class)
  */
-class CourseRatingStates
+class CourseRatingState
 {
     /**
      * @ORM\Id
@@ -18,14 +19,14 @@ class CourseRatingStates
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
      */
     private $state;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $course_ratings_id;
+    private $course_rating_id;
 
     public function getId(): ?int
     {
@@ -44,15 +45,16 @@ class CourseRatingStates
         return $this;
     }
 
-    public function getCourseRatingsId(): ?int
+    public function getCourseRatingId(): ?int
     {
         return $this->course_ratings_id;
     }
 
-    public function setCourseRatingsId(int $course_ratings_id): self
+    public function setCourseRatingId(int $course_ratings_id): self
     {
-        $this->course_ratings_id = $course_ratings_id;
+        $this->course_ratings_id = $course_rating_id;
 
         return $this;
     }
+
 }
