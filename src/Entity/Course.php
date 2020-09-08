@@ -39,10 +39,22 @@ class Course
      */
     private $translations;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CourseTechnology::class, inversedBy="courses")
+     */
+    private $technologies;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CourseRating::class, mappedBy="course")
+     */
+    private $ratings;
+
     public function __construct()
     {
         $this->characteristics = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->technologies = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -117,10 +129,67 @@ class Course
         return $this;
     }
 
+    /**
+     * @return Collection|CourseTechnology[]
+     */
+    public function getTechnologies(): Collection
+    {
+        return $this->technologies;
+    }
+
+    public function addTechnology(CourseTechnology $technology): self
+    {
+        if (!$this->technologies->contains($technology)) {
+            $this->technologies[] = $technology;
+        }
+
+        return $this;
+    }
+
     public function removeTranslation(CourseTranslation $translation): self
     {
         if ($this->translations->contains($translation)) {
             $this->translations->removeElement($translation);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnology(CourseTechnology $technology): self
+    {
+        if ($this->technologies->contains($technology)) {
+            $this->technologies->removeElement($technology);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseRating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(CourseRating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(CourseRating $rating): self
+    {
+        if ($this->ratings->contains($rating)) {
+            $this->ratings->removeElement($rating);
+            // set the owning side to null (unless already changed)
+            if ($rating->getCourse() === $this) {
+                $rating->setCourse(null);
+            }
         }
 
         return $this;
