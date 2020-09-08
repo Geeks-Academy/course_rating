@@ -44,11 +44,17 @@ class Course
      */
     private $technologies;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CourseRating::class, mappedBy="course")
+     */
+    private $ratings;
+
     public function __construct()
     {
         $this->characteristics = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->technologies = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,6 +159,37 @@ class Course
     {
         if ($this->technologies->contains($technology)) {
             $this->technologies->removeElement($technology);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseRating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(CourseRating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(CourseRating $rating): self
+    {
+        if ($this->ratings->contains($rating)) {
+            $this->ratings->removeElement($rating);
+            // set the owning side to null (unless already changed)
+            if ($rating->getCourse() === $this) {
+                $rating->setCourse(null);
+            }
         }
 
         return $this;

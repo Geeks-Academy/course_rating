@@ -44,6 +44,11 @@ class CourseRating
      */
     private $ratingCriterionReferences;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Course::class, inversedBy="ratings")
+     */
+    private $course;
+
     public function __construct()
     {
         $this->ratingCriterionReferences = new ArrayCollection();
@@ -129,6 +134,18 @@ class CourseRating
                 $ratingCriterionReference->setCourseRating(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCourse(): ?Course
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?Course $course): self
+    {
+        $this->course = $course;
 
         return $this;
     }
