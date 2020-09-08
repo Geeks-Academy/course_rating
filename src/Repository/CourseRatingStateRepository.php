@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method CourseRatingState[]    findAll()
  * @method CourseRatingState[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CourseRatingStatesRepository extends ServiceEntityRepository
+class CourseRatingStateRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CourseRatingStatesRepository;
+use App\Repository\CourseRatingStateRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CourseRatingStatesRepository::class)
+ * @ORM\Entity(repositoryClass=CourseRatingStateRepository::class)
  */
-class CourseRatingStates
+class CourseRatingState
 {
     /**
      * @ORM\Id
@@ -18,7 +19,7 @@ class CourseRatingStates
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
      */
     private $state;
 
@@ -26,6 +27,11 @@ class CourseRatingStates
      * @ORM\Column(type="integer")
      */
     private $course_ratings_id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=CourseRating::class, mappedBy="courses_id")
+     */
+    private $course_ratings;
 
     public function getId(): ?int
     {
@@ -52,6 +58,34 @@ class CourseRatingStates
     public function setCourseRatingsId(int $course_ratings_id): self
     {
         $this->course_ratings_id = $course_ratings_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseRating[]
+     */
+    public function getCoursesRatings(): Collection
+    {
+        return $this->course_ratings;
+    }
+
+    public function addCourseRating(CourseRating $courseRating): self
+    {
+        if (!$this->course_ratings->contains($courseRating)) {
+            $this->course_ratings[] = $courseRating;
+            $courseRating->addCourseRating($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourseRating(CourseRating $courseRating): self
+    {
+        if ($this->courseRating->contains($courseRating)) {
+            $this->courseRating->removeElement($courseRating);
+            $courseRating->removeCourseRating($this);
+        }
 
         return $this;
     }
