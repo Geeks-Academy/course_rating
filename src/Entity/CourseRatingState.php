@@ -52,7 +52,7 @@ class CourseRatingState
 
     public function setCourseRatingId(int $course_rating_id): self
     {
-        $this->course_ratings_id = $course_rating_id;
+        $this->course_rating_id = $course_rating_id;
 
         return $this;
     }
