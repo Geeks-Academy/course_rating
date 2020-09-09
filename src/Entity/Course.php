@@ -49,12 +49,18 @@ class Course
      */
     private $ratings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CourseSource::class, mappedBy="course")
+     */
+    private $sources;
+
     public function __construct()
     {
         $this->characteristics = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->technologies = new ArrayCollection();
         $this->ratings = new ArrayCollection();
+        $this->sources = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,6 +195,37 @@ class Course
             // set the owning side to null (unless already changed)
             if ($rating->getCourse() === $this) {
                 $rating->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseSource[]
+     */
+    public function getSources(): Collection
+    {
+        return $this->sources;
+    }
+
+    public function addSource(CourseSource $source): self
+    {
+        if (!$this->sources->contains($source)) {
+            $this->sources[] = $source;
+            $source->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSource(CourseSource $source): self
+    {
+        if ($this->sources->contains($source)) {
+            $this->sources->removeElement($source);
+            // set the owning side to null (unless already changed)
+            if ($source->getCourse() === $this) {
+                $source->setCourse(null);
             }
         }
 
