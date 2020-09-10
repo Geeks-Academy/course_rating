@@ -54,6 +54,46 @@ class Course
      */
     private $sources;
 
+    /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $author;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $release_date;
+
+    /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    private $duration;
+
+    /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    private $language;
+
+    /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $repository_url;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isReviewed;
+
     public function __construct()
     {
         $this->characteristics = new ArrayCollection();
@@ -228,6 +268,102 @@ class Course
                 $source->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getReleaseDate(): ?\DateTimeInterface
+    {
+        return $this->release_date;
+    }
+
+    public function setReleaseDate(?\DateTimeInterface $release_date): self
+    {
+        $this->release_date = $release_date;
+
+        return $this;
+    }
+
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?string $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getRepositoryUrl(): ?string
+    {
+        return $this->repository_url;
+    }
+
+    public function setRepositoryUrl(string $repository_url): self
+    {
+        $this->repository_url = $repository_url;
+
+        return $this;
+    }
+
+    public function getIsReviewed(): ?bool
+    {
+        return $this->isReviewed;
+    }
+
+    public function setIsReviewed(bool $isReviewed): self
+    {
+        $this->isReviewed = $isReviewed;
 
         return $this;
     }
