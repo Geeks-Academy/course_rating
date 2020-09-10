@@ -47,6 +47,11 @@ class UserVotes
      */
     private $course_ratings_id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=CourseRating::class, inversedBy="userVotes")
+     */
+    private $courseRating;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class UserVotes
     public function setCourseRatingsId(int $course_ratings_id): self
     {
         $this->course_ratings_id = $course_ratings_id;
+
+        return $this;
+    }
+
+    public function getCourseRating(): ?CourseRating
+    {
+        return $this->courseRating;
+    }
+
+    public function setCourseRating(?CourseRating $courseRating): self
+    {
+        $this->courseRating = $courseRating;
 
         return $this;
     }
