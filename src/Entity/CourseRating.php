@@ -54,10 +54,16 @@ class CourseRating
      */
     private $notificationRequests;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserRating::class, mappedBy="courseRating")
+     */
+    private $userRatings;
+
     public function __construct()
     {
         $this->ratingCriterionReferences = new ArrayCollection();
         $this->notificationRequests = new ArrayCollection();
+        $this->userRatings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,6 +187,37 @@ class CourseRating
             // set the owning side to null (unless already changed)
             if ($notificationRequest->getCourseRating() === $this) {
                 $notificationRequest->setCourseRating(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserRating[]
+     */
+    public function getUserRatings(): Collection
+    {
+        return $this->userRatings;
+    }
+
+    public function addUserRating(UserRating $userRating): self
+    {
+        if (!$this->userRatings->contains($userRating)) {
+            $this->userRatings[] = $userRating;
+            $userRating->setCourseRating($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRating(UserRating $userRating): self
+    {
+        if ($this->userRatings->contains($userRating)) {
+            $this->userRatings->removeElement($userRating);
+            // set the owning side to null (unless already changed)
+            if ($userRating->getCourseRating() === $this) {
+                $userRating->setCourseRating(null);
             }
         }
 
