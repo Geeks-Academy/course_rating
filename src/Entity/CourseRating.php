@@ -55,6 +55,16 @@ class CourseRating
     private $notificationRequests;
 
     /**
+     * @ORM\OneToMany(targetEntity=UserVotes::class, mappedBy="courseRating")
+     */
+    private $userVotes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CourseRatingState::class, mappedBy="courseRating")
+     */
+    private $ratingStates;
+
+    /**
      * @ORM\OneToMany(targetEntity=UserRating::class, mappedBy="courseRating")
      */
     private $userRatings;
@@ -63,6 +73,8 @@ class CourseRating
     {
         $this->ratingCriterionReferences = new ArrayCollection();
         $this->notificationRequests = new ArrayCollection();
+        $this->userVotes = new ArrayCollection();
+        $this->ratingStates = new ArrayCollection();
         $this->userRatings = new ArrayCollection();
     }
 
@@ -194,6 +206,23 @@ class CourseRating
     }
 
     /**
+     * @return Collection|UserVotes[]
+     */
+    public function getUserVotes(): Collection
+    {
+        return $this->userVotes;
+    }
+
+    public function addUserVote(UserVotes $userVote): self
+    {
+        if (!$this->userVotes->contains($userVote)) {
+            $this->userVotes[] = $userVote;
+            $userVote->setCourseRating($this);
+        }
+
+        return $this;
+    }
+    /**
      * @return Collection|UserRating[]
      */
     public function getUserRatings(): Collection
@@ -206,6 +235,50 @@ class CourseRating
         if (!$this->userRatings->contains($userRating)) {
             $this->userRatings[] = $userRating;
             $userRating->setCourseRating($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserVote(UserVotes $userVote): self
+    {
+        if ($this->userVotes->contains($userVote)) {
+            $this->userVotes->removeElement($userVote);
+            // set the owning side to null (unless already changed)
+            if ($userVote->getCourseRating() === $this) {
+                $userVote->setCourseRating(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseRatingState[]
+     */
+    public function getRatingStates(): Collection
+    {
+        return $this->ratingStates;
+    }
+
+    public function addRatingState(CourseRatingState $ratingState): self
+    {
+        if (!$this->ratingStates->contains($ratingState)) {
+            $this->ratingStates[] = $ratingState;
+            $ratingState->setCourseRating($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRatingState(CourseRatingState $ratingState): self
+    {
+        if ($this->ratingStates->contains($ratingState)) {
+            $this->ratingStates->removeElement($ratingState);
+            // set the owning side to null (unless already changed)
+            if ($ratingState->getCourseRating() === $this) {
+                $ratingState->setCourseRating(null);
+            }
         }
 
         return $this;
