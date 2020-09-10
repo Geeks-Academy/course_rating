@@ -55,6 +55,7 @@ class CourseRating
     private $notificationRequests;
 
     /**
+<<<<<<< HEAD
      * @ORM\OneToMany(targetEntity=UserVotes::class, mappedBy="courseRating")
      */
     private $userVotes;
@@ -64,12 +65,18 @@ class CourseRating
      */
     private $ratingStates;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserRating::class, mappedBy="courseRating")
+     */
+    private $userRatings;
+
     public function __construct()
     {
         $this->ratingCriterionReferences = new ArrayCollection();
         $this->notificationRequests = new ArrayCollection();
         $this->userVotes = new ArrayCollection();
         $this->ratingStates = new ArrayCollection();
+        $this->userRatings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,6 +207,7 @@ class CourseRating
     }
 
     /**
+<<<<<<< HEAD
      * @return Collection|UserVotes[]
      */
     public function getUserVotes(): Collection
@@ -212,6 +220,23 @@ class CourseRating
         if (!$this->userVotes->contains($userVote)) {
             $this->userVotes[] = $userVote;
             $userVote->setCourseRating($this);
+        }
+
+        return $this;
+    }
+    /**
+     * @return Collection|UserRating[]
+     */
+    public function getUserRatings(): Collection
+    {
+        return $this->userRatings;
+    }
+
+    public function addUserRating(UserRating $userRating): self
+    {
+        if (!$this->userRatings->contains($userRating)) {
+            $this->userRatings[] = $userRating;
+            $userRating->setCourseRating($this);
         }
 
         return $this;
@@ -255,6 +280,19 @@ class CourseRating
             // set the owning side to null (unless already changed)
             if ($ratingState->getCourseRating() === $this) {
                 $ratingState->setCourseRating(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function removeUserRating(UserRating $userRating): self
+    {
+        if ($this->userRatings->contains($userRating)) {
+            $this->userRatings->removeElement($userRating);
+            // set the owning side to null (unless already changed)
+            if ($userRating->getCourseRating() === $this) {
+                $userRating->setCourseRating(null);
             }
         }
 
