@@ -28,6 +28,11 @@ class CourseRatingState
      */
     private $course_rating_id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=CourseRating::class, inversedBy="ratingStates")
+     */
+    private $courseRating;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +58,18 @@ class CourseRatingState
     public function setCourseRatingId(int $course_rating_id): self
     {
         $this->course_rating_id = $course_rating_id;
+
+        return $this;
+    }
+
+    public function getCourseRating(): ?CourseRating
+    {
+        return $this->courseRating;
+    }
+
+    public function setCourseRating(?CourseRating $courseRating): self
+    {
+        $this->courseRating = $courseRating;
 
         return $this;
     }
