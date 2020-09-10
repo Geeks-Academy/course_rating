@@ -55,7 +55,6 @@ class CourseRating
     private $notificationRequests;
 
     /**
-<<<<<<< HEAD
      * @ORM\OneToMany(targetEntity=UserVotes::class, mappedBy="courseRating")
      */
     private $userVotes;
@@ -207,7 +206,6 @@ class CourseRating
     }
 
     /**
-<<<<<<< HEAD
      * @return Collection|UserVotes[]
      */
     public function getUserVotes(): Collection
