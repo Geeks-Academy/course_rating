@@ -17,5 +17,3 @@ USER user
 RUN wget https://get.symfony.com/cli/installer -O - | bash
 
 ENV PATH="/home/user/.symfony/bin:${PATH}"
-
-ENTRYPOINT ["/bin/bash", "-c"]

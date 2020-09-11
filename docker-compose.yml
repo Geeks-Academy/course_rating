@@ -1,0 +1,39 @@
+version: "2"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ${APP_ENV}.dockerfile
+    environment:
+      - MYSQL_HOST
+    working_dir: /var/www
+    expose:
+      - 9000
+    links:
+      - database
+
+  web:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www/api
+      - ./nginx/log:/var/log/nginx
+    expose:
+      - 80
+    links:
+      - api
+
+  database:
+    build:
+      context: mysql
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_USER
+      - MYSQL_DATABASE
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+    expose:
+      - 3306
