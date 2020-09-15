@@ -1,0 +1,46 @@
+version: "2"
+
+services:
+  api:
+    build:
+      context: api
+      dockerfile: ${APP_ENV}.dockerfile
+      args:
+        - USER_ID=${USER_ID}
+    environment:
+      - APP_ENV
+      - MYSQL_USER
+      - MYSQL_DATABASE
+      - MYSQL_PASSWORD
+    working_dir: /var/www
+    expose:
+      - 9000
+    links:
+      - database
+
+  web:
+    build:
+      context: nginx
+      dockerfile: ${APP_ENV}.dockerfile
+      args:
+        - USER_ID
+    working_dir: /var/www
+    volumes:
+      - ./api:/var/www/api
+      - ./nginx/logs:/var/www/logs
+    expose:
+      - 8080
+    links:
+      - api
+
+  database:
+    build:
+      context: mysql
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_USER
+      - MYSQL_DATABASE
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+    expose:
+      - 3306
