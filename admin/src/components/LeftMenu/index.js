@@ -3,8 +3,14 @@ import { Wrapper } from "./styled";
 
 const LeftMenu = () => (
   <Wrapper>
-    <a href="#">link 1</a>
-    <a href="#">link 2</a>
+    <ul>
+      <li>
+        <a href="#">link 1</a>
+      </li>
+      <li>
+        <a href="#">link 2</a>
+      </li>
+    </ul>
   </Wrapper>
 );
 
