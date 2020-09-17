@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LeftMenu from './components/LeftMenu';
-import CoursesList from "./components/CoursesList";
+import MainContainer from './components/MainContainer';
 
 const coursesList = [
-    {
-        name: 'Kurs 1'
-    },
-    {
-        name: 'Kurs 2'
-    },
-    {
-        name: 'Kurs 3'
-    },
+  {
+    name: 'Kurs 1',
+  },
+  {
+    name: 'Kurs 2',
+  },
+  {
+    name: 'Kurs 3',
+  },
 ];
 
-const App = () => (
-  <div>
-    <LeftMenu />
-    <CoursesList items={coursesList} />
-  </div>
-);
+const App = () => {
+  const [currentComponent, setCurrentComponent] = useState(null);
+
+  return (
+    <div>
+      <LeftMenu />
+      <MainContainer children={currentComponent} />
+    </div>
+  );
+};
 
 export default App;
