@@ -2,9 +2,7 @@ import React from 'react';
 import { Wrapper } from './styled';
 import * as PropTypes from 'prop-types';
 
-const MainContainer = ({ props }) => {
-  const { children } = props;
-
+const MainContainer = ({ children }) => {
   return <Wrapper>{children ? children : 'Main component'}</Wrapper>;
 };
 
