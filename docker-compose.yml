@@ -12,6 +12,7 @@ services:
       - MYSQL_USER
       - MYSQL_DATABASE
       - MYSQL_PASSWORD
+      - MYSQL_HOST
     working_dir: /var/www
     expose:
       - 9000
