@@ -1,10 +1,10 @@
 import React from 'react';
-import { Wrapper } from './styled';
 import * as PropTypes from 'prop-types';
+import { Wrapper } from './styled';
 
-const CoursesList = ({ items }) => (
+const Translations = ({ items }) => (
   <Wrapper>
-    <p>lista kursów</p>
+    <p>tłumaczenia</p>
     <ul>
       {items.map(({ name }) => (
         <li>{name}</li>
@@ -13,16 +13,16 @@ const CoursesList = ({ items }) => (
   </Wrapper>
 );
 
-CoursesList.propTypes = {
+Translations.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
-    })
+    }),
   ),
 };
 
-CoursesList.defaultProps = {
+Translations.defaultProps = {
   items: [],
 };
 
-export default CoursesList;
+export default Translations;
