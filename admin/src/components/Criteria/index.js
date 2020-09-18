@@ -4,6 +4,7 @@ import { Wrapper } from './styled';
 
 const Criteria = ({ items }) => (
   <Wrapper>
+    <p>kryteria</p>
     <ul>
       {items.map(({ name }) => (
         <li>{name}</li>

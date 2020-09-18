@@ -3,7 +3,7 @@ import { Wrapper } from './styled';
 import * as PropTypes from 'prop-types';
 
 const MainContainer = ({ children }) => {
-  return <Wrapper>{children ? children : 'Main component'}</Wrapper>;
+  return <Wrapper>{children ? children : 'Main container'}</Wrapper>;
 };
 
 MainContainer.propTypes = {
