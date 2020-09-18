@@ -4,6 +4,7 @@ import { Wrapper } from './styled';
 
 const Translations = ({ items }) => (
   <Wrapper>
+    <p>tłumaczenia</p>
     <ul>
       {items.map(({ name }) => (
         <li>{name}</li>

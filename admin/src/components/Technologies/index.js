@@ -4,6 +4,7 @@ import { Wrapper } from './styled';
 
 const Technologies = ({ items }) => (
   <Wrapper>
+    <p>technologie</p>
     <ul>
       {items.map(({ name }) => (
         <li>{name}</li>

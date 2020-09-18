@@ -4,6 +4,7 @@ import { Wrapper } from './styled';
 
 const Reminders = ({ items }) => (
   <Wrapper>
+    <p>przypomnienia</p>
     <ul>
       {items.map(({ name }) => (
         <li>{name}</li>

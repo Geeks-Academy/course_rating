@@ -1,27 +1,20 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import LeftMenu from './components/LeftMenu';
 import MainContainer from './components/MainContainer';
 
-const coursesList = [
-  {
-    name: 'Kurs 1',
-  },
-  {
-    name: 'Kurs 2',
-  },
-  {
-    name: 'Kurs 3',
-  },
-];
+const Wrapper = styled.div`
+  display: flex;
+`;
 
 const App = () => {
-  const [currentComponent, setCurrentComponent] = useState(null);
+  const [currentComponent, setCurrentComponent] = useState<JSX.Element | null>(null);
 
   return (
-    <div>
-      <LeftMenu />
+    <Wrapper>
+      <LeftMenu setCurrentComponent={setCurrentComponent} />
       <MainContainer children={currentComponent} />
-    </div>
+    </Wrapper>
   );
 };
 
