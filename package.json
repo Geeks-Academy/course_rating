@@ -1,0 +1,21 @@
+{
+  "name": "course_rating",
+  "version": "1.0.0",
+  "description": "Commitlint for git workflow",
+  "main": "",
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.2"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Programmers-Only-Group/course_rating.git"
+  },
+  "author": "Programmers Only",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Programmers-Only-Group/course_rating/issues"
+  },
+  "homepage": "https://github.com/Programmers-Only-Group/course_rating#readme"
+}
