@@ -26,7 +26,7 @@ class CourseTranslationController extends AbstractController
             ->findAll();
 
         foreach($translations as $tr) {
-            $languages[] = array('language'=>$tr['name']);
+            $languages[] = $tr->getLanguage();
         }
 
         return $this->json($languages);
