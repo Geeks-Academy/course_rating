@@ -6,3 +6,7 @@
 /.idea
 /.DS_Store
 ###< ide
+
+###> Dependency directories
+node_modules/
+###< Dependency directories
