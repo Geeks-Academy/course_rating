@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=CourseCharacteristicRepository::class)
  */
-class CourseCharacteristic
+class CourseCharacteristic implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -32,16 +32,23 @@ class CourseCharacteristic
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isEnabled = false;
+    private $isEnabled;
 
     /**
      * @ORM\ManyToMany(targetEntity=Course::class, mappedBy="characteristics")
      */
     private $courses;
 
+    /**
+     * @ORM\OneToOne(targetEntity=CourseCharacteristic::class, cascade={"persist"})
+     * @ORM\JoinColumn(name="counterpart_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $counterpart;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        $this->isEnabled = false;
     }
 
     public function getId(): ?int
@@ -111,5 +118,50 @@ class CourseCharacteristic
         }
 
         return $this;
+    }
+
+    public function getCounterpart(): ?CourseCharacteristic
+    {
+        return $this->counterpart;
+    }
+
+    public function setCounterpart($counterpart): self
+    {
+        // 2 way bind of the counterpart
+        if ($counterpart) {
+            if ($this->counterpart) {
+                $this->counterpart->counterpart = null;
+            }
+            $counterpart->counterpart = $this;
+        }
+
+        // unlink on the other side when $counterpart is null
+        if ($this->counterpart && !$counterpart) {
+            $this->counterpart->counterpart = null;
+        }
+
+        $this->counterpart = $counterpart;
+        return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        $payload = [
+            'id' => $this->id,
+            'title' => $this->title,
+            'code' => $this->code,
+        ];
+
+        if ($this->counterpart) {
+            $payload['counterpart'] = [
+                'id' => $this->counterpart->id,
+                'title' => $this->counterpart->title,
+                'code' => $this->counterpart->code,
+            ];
+        } else {
+            $payload['counterpart'] = null;
+        }
+
+        return $payload;
     }
 }

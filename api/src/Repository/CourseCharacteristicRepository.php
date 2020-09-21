@@ -19,6 +19,23 @@ class CourseCharacteristicRepository extends ServiceEntityRepository
         parent::__construct($registry, CourseCharacteristic::class);
     }
 
+    /**
+     * @param bool $enabledOnly determines whether it should return only enabled course characteristics
+     * @return CourseCharacteristic[]
+     */
+    public function findCourseCharacteristics(bool $enabledOnly = true)
+    {
+        $qb = $this->createQueryBuilder('cc');
+
+        $qb->select('cc');
+
+        if ($enabledOnly) {
+            $qb->where('cc.isEnabled = true');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return CourseCharacteristic[] Returns an array of CourseCharacteristic objects
     //  */
