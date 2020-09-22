@@ -1,4 +1,6 @@
 {
+    "name":"programmers-only-group/course_rating",
+    "description":"Course rating app",
     "type": "project",
     "license": "proprietary",
     "require": {

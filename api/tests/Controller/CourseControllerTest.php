@@ -107,6 +107,8 @@ class CourseControllerTest extends WebTestCase
         $this->assertEquals('pl', $object->getLanguage());
         $this->assertEquals('test3', $object->getRepositoryUrl());
         $this->assertEquals('fds', $object->getUrl());
+
+        $entityManager->close();
     }
 
 }

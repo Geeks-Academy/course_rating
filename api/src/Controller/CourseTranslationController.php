@@ -3,7 +3,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\CourseTranslation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +17,18 @@ class CourseTranslationController extends AbstractController
     /**
      * @Route("", name="list", methods={"GET"})
      */
-    public function courseTranslationList(Request $request): Response
+    public function list(Request $request): Response
     {
-        return $this->json([
-            [
-                'language' => 'pl',
-            ],
-            [
-                'language' => 'en',
-            ]
-        ]);
+        $languages = array();
+
+        $translations = $this->getDoctrine()
+            ->getRepository(CourseTranslation::class)
+            ->findAll();
+
+        foreach($translations as $tr) {
+            $languages[] = $tr->getLanguage();
+        }
+
+        return $this->json($languages);
     }
 }
