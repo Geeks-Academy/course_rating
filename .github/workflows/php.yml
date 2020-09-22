@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Check composer packages
 
 on:
   push:
