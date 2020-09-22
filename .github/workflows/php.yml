@@ -21,8 +21,7 @@ jobs:
     - name: Build services and initially validate them
       run: ./scripts/build.sh test
 
-    - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
+    - name: Run tests
       run: ./scripts/test.sh
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"

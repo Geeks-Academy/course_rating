@@ -10,13 +10,13 @@ ROOT="$(realpath $DIR/../)"
 docker-compose -f docker-compose.yml -f docker-compose.testing.yml up -d
 
 # Initialize database
-docker-compose exec api php bin/console doctrine:database:create --if-not-exists
+docker-compose exec -T api php bin/console doctrine:database:create --if-not-exists
 
 # Initialize migrations
-docker-compose exec api php bin/console doctrine:schema:update --force
+docker-compose exec -T api php bin/console doctrine:schema:update --force
 
 # Execute tests
-docker-compose exec api php bin/phpunit
+docker-compose exec -T api php bin/phpunit
 
 API_STATUS=$?
 
