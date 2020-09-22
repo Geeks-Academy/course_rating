@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=CourseRepository::class)
  */
-class Course
+class Course implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -85,7 +85,7 @@ class Course
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $repository_url;
 
@@ -366,5 +366,27 @@ class Course
         $this->isReviewed = $isReviewed;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'author' => $this->author,
+            'name' => $this->name,
+            'url' => $this->url,
+            'release_date' => $this->release_date,
+            'duration' => $this->duration,
+            'language' => $this->language,
+            'isReviewed' => $this->isReviewed,
+            'repository_url' => $this->repository_url,
+            'price' => $this->price,
+        ];
+    }
+
+    public function getData()
+    {
+        return $this->jsonSerialize();
     }
 }
