@@ -1,4 +1,6 @@
 {
+    "name":"course_rating",
+    "description":"Course rating app",
     "type": "project",
     "license": "proprietary",
     "require": {
