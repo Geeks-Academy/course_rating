@@ -6,8 +6,7 @@
   "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
-    "husky": "3.0.8",
-    "lint-staged": "^10.2.11"
+    "husky": "3.0.8"
   },
   "scripts": {},
   "repository": {
@@ -22,14 +21,7 @@
   "homepage": "https://github.com/Programmers-Only-Group/course_rating#readme",
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --config .prettierrc --write",
-      "eslint --fix"
-    ]
   }
 }
