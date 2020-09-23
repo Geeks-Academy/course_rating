@@ -1,8 +1,6 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import GlobalStyles from './GlobalStyles';
-
-afterEach(cleanup);
 
 describe('GlobalStyles', () => {
   test('render GlobalStyles has box-sizing set', () => {
