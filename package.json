@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Commitlint for git workflow",
   "main": "",
-  "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
     "husky": "3.0.8",
