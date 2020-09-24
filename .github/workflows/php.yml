@@ -17,10 +17,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Validate composer.json and composer.lock
+      
+    - name: Validate composer
       run: composer validate
-
+      
+    - name: Install npm
+      run: npm install
+      
 #    - name: Install dependencies
 #      run: composer install --prefer-dist --no-progress --no-suggest
 
