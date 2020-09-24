@@ -21,6 +21,9 @@ jobs:
     - name: Validate composer
       run: composer validate
     
+    - name: Copy .env file
+      run: cp .env.example .env
+    
     - name: Install dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
