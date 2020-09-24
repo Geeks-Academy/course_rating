@@ -8,5 +8,3 @@
   "editor.formatOnSave": false,
   "eslint.workingDirectories": [ "./admin" ],
 }
-
-
