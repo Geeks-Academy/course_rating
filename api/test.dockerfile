@@ -11,7 +11,7 @@ RUN docker-php-ext-install pdo_mysql intl opcache
 COPY ./composer.json .
 COPY ./composer.lock .
 
-RUN composer install --prefer-dist --no-progress --no-suggest
+RUN composer install --no-progress
 
 RUN composer validate
 
