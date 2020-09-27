@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -17,6 +16,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Download docker images
+      run: docker-compose -f docker-compose.yml -f docker-compose.testing.yml pull
+
+    - uses: satackey/action-docker-layer-caching@v0.0.8
+      # Ignore the failure of a step and avoid terminating the job.
+      continue-on-error: true
 
     - name: Build services and initially validate them
       run: ./scripts/build.sh test
