@@ -17,6 +17,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Copy default .env.example.test
+      run: cp .env.test.example .env
+
     - name: Download docker images
       run: docker-compose -f docker-compose.yml -f docker-compose.testing.yml pull
 
