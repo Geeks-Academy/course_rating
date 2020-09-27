@@ -16,7 +16,7 @@ docker-compose exec -T api php bin/console doctrine:database:create --if-not-exi
 docker-compose exec -T api php bin/console doctrine:schema:update --force
 
 # Execute tests
-docker-compose exec -T api php bin/phpunit
+docker-compose exec -T api ./vendor/bin/simple-phpunit
 
 API_STATUS=$?
 
