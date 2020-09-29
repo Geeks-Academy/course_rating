@@ -18,6 +18,8 @@ export default {
   },
 };
 
-export const Default = ({ border }: IExampleStorybook) => <ExampleStorybook border={border} />;
+export const Default = ({ border }: IExampleStorybook): JSX.Element => (
+  <ExampleStorybook border={border} />
+);
 
-export const WithBorder = () => <ExampleStorybook border />;
+export const WithBorder = (): JSX.Element => <ExampleStorybook border />;
