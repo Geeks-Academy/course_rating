@@ -4,5 +4,11 @@ export const parameters = {
 
 import React from 'react';
 import { addDecorator } from '@storybook/react';
+import GlobalStyles from '../src/styles/GlobalStyles';
 
-addDecorator((story) => <>{story()}</>);
+addDecorator((story) => (
+  <>
+    <GlobalStyles />
+    {story()}
+  </>
+));
