@@ -8,24 +8,27 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-        working-directory: api
+        working-directory: ./
 
     steps:
     - uses: actions/checkout@v2
-      
-    - name: Validate composer
-      run: composer validate
-    
-    - name: Copy .env file
-      run: cp .env.example .env
-    
-    - name: Install dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
-    - name: Run unit tests
-      run: phpunit tests
+    - name: Copy default .env.example.test
+      run: cp .env.test.example .env
+
+    - name: Download docker images
+      run: docker-compose -f docker-compose.yml -f docker-compose.testing.yml pull
+
+    - uses: satackey/action-docker-layer-caching@v0.0.8
+      # Ignore the failure of a step and avoid terminating the job.
+      continue-on-error: true
+
+    - name: Build services and initially validate them
+      run: ./scripts/build.sh test
+
+    - name: Run tests
+      run: ./scripts/test.sh

@@ -3,7 +3,7 @@
 namespace App\Tests\Controller;
 
 use App\Controller\CourseTranslationController;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CourseTranslationControllerTest extends WebTestCase
 {
