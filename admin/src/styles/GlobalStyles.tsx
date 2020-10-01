@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import typography from './typography';
 
-
 const GlobalStyles = createGlobalStyle`
     * {
         ${typography.globalStyles};
@@ -12,10 +11,6 @@ const GlobalStyles = createGlobalStyle`
     body{
         margin: 0;
     }
-    html {
-        box-sizing: border-box;
-        overflow-y: scroll;
-  }
 `;
 
 export default GlobalStyles;
