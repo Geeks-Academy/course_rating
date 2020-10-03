@@ -10,28 +10,34 @@ const typography = {
   header: {
     XXL: `
         ${defaultStyles}
-        font-size: 37px;`,
+        font-size: 37px;
+        letter-spacing: -0.02em;`,
     XL: `
         ${defaultStyles}
-        font-size: 33px;`,
+        font-size: 33px;
+        letter-spacing: -0.01em;`,
     L: `
         ${defaultStyles}
         font-size: 29px;`,
     M: `
         ${defaultStyles}
-        font-size: 25px;`,
+        font-size: 25px;
+        letter-spacing: 0.01em;`,
     S: `
         ${defaultStyles};
-        font-size: 21px;`,
+        font-size: 21px;
+        letter-spacing: 0.01em;`,
     bold: {
       XXL: `
           ${defaultStyles}
           font-weight: bold;
-          font-size: 37px;`,
+          font-size: 37px;
+          letter-spacing: -0.02em;`,
       XL: `
           ${defaultStyles}
           font-weight: bold;
-          font-size: 33px;`,
+          font-size: 33px;
+          letter-spacing: -0.01em;`,
       L: `
           ${defaultStyles}
           font-weight: bold;
@@ -39,11 +45,13 @@ const typography = {
       M: `
           ${defaultStyles}
           font-weight: bold;
-          font-size: 25px;`,
+          font-size: 25px;
+          letter-spacing: 0.01em;`,
       S: `
           ${defaultStyles}
           font-weight: bold;
-          font-size: 21px;`,
+          font-size: 21px;
+          letter-spacing: 0.02em;`,
     },
   },
   body: {
@@ -52,10 +60,16 @@ const typography = {
         font-size: 17px;`,
     M: `
         ${defaultStyles}
-        font-size: 15px;`,
+        font-size: 15px;
+        letter-spacing: 0.01em;`,
     S: `
         ${defaultStyles}
-        font-size: 13px;`,
+        font-size: 13px;
+        letter-spacing: 0.02em;`,
+    XS: `
+        ${defaultStyles}
+        font-size: 11px;
+        letter-spacing: 0.03em;`,
     bold: {
       L: `
           ${defaultStyles}
@@ -64,11 +78,18 @@ const typography = {
       M: `
           ${defaultStyles}
           font-weight: bold;
-          font-size: 15px;`,
+          font-size: 15px;
+          letter-spacing: 0.01em;`,
       S: `
           ${defaultStyles}
           font-weight: bold;
-          font-size: 13px;`,
+          font-size: 13px;
+          letter-spacing: 0.02em;`,
+      XS: `
+          ${defaultStyles}
+          font-weight: bold;
+          font-size: 11px;
+          letter-spacing: 0.03em;`,
     },
   },
 };
