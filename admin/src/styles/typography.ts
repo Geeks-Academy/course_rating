@@ -51,7 +51,7 @@ const typography = {
           ${defaultStyles}
           font-weight: bold;
           font-size: 21px;
-          letter-spacing: 0.02em;`,
+          letter-spacing: 0.01em;`,
     },
   },
   body: {
