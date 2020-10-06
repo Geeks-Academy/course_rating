@@ -1,8 +1,6 @@
 import React from 'react';
 import Input from 'components/atoms/Input';
-import { cleanup, render } from '@testing-library/react';
-
-afterEach(cleanup);
+import { render } from '@testing-library/react';
 
 describe('Input Component', () => {
   const mockedIcon = () => <svg />;
