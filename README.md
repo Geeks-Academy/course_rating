@@ -7,7 +7,7 @@ Install Node.js on your machine [Node via package manager](https://nodejs.org/en
 
 After that in root directory run command in terminal ```npm install``` to install dependencies.
 
-Your commit message should contain PREFIX: FRDQ, ID as a number, and SUBJECT.
+Your commit message should contain PREFIX: RAGC, ID as a number, and SUBJECT.
 Example: ```"RAGC-21 - Your commit message"```
 
 
@@ -76,3 +76,46 @@ Allows you to quick setup development environment
     > If you want to stop the server, type
       `docker-compose stop` on your host machine.
 
+
+
+### Frontend version - base setup
+
+- First of all change directory and install dependencies
+  ```
+  cd admin && npm install
+  ```
+- To run application
+   ```
+  npm start
+  ```
+- To run tests:
+    - with watch mode
+        ```
+        npm run test:watch
+        ```
+    - w/o watch mode
+        ```
+        npm test
+        ```
+    - generete coverve test report
+        ```
+        npm run test:coverage
+        ```
+        > **Note:** After command you will see total coverage and will be create coverage directory with UI view -> ```coverage/lcov-report/index.html```
+
+- To run Storybook:
+   ```
+  npm run storybook
+  ```
+- To run stylelint manualy:
+    ```
+    npm run lint:css
+    ```
+- To run prettier manualy:
+    ```
+    npx prettier --config .prettierrc --write src/.
+    ```
+- To run eslint manualy:
+    ```
+    npx eslint --fix src/.
+    ```
