@@ -7,7 +7,7 @@ Install Node.js on your machine [Node via package manager](https://nodejs.org/en
 
 After that in root directory run command in terminal ```npm install``` to install dependencies.
 
-Your commit message should contain PREFIX: FRDQ, ID as a number, and SUBJECT.
+Your commit message should contain PREFIX: RAGC, ID as a number, and SUBJECT.
 Example: ```"RAGC-21 - Your commit message"```
 
 
@@ -76,3 +76,18 @@ Allows you to quick setup development environment
     > If you want to stop the server, type
       `docker-compose stop` on your host machine.
 
+
+
+### Frontend version - base setup
+
+- First of all change directory
+  ```
+  cd admin
+  ```
+
+- To run application
+   ```
+  npm start
+  ```
+
+-

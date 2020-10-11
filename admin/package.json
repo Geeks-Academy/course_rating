@@ -77,9 +77,6 @@
       "src/**/*.ts",
       "!src/**/*.styled.ts",
       "!src/**/*.stories.tsx"
-    ],
-    "coverageReporters": [
-      "text"
     ]
   }
 }
