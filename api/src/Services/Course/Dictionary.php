@@ -2,9 +2,9 @@
 
 namespace App\Services\Course;
 
-use ReflectionClass;
+use App\Services\Dictionary as BaseDictionary;
 
-final class Dictionary
+final class Dictionary extends BaseDictionary
 {
     public const REPOSITORY_URL = 'repository_url';
 
@@ -24,10 +24,5 @@ final class Dictionary
 
     public const DURATION = 'duration';
 
-    public static function toArray()
-    {
-        return array_values(
-            (new ReflectionClass(self::class))->getConstants()
-        );
-    }
+    public const LEVEL = 'level';
 }
