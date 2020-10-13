@@ -27,7 +27,7 @@ class CourseControllerTest extends WebTestCase
             'author' => 'Bob',
             'duration' => '50y',
             'release_date' => (new \DateTime('now')),
-            'isReviewed' => true,
+            'is_reviewed' => true,
             'price' => '10zł',
             'language' => 'en',
             'repository_url' => 'http://sdf.pl/repo',
@@ -45,7 +45,7 @@ class CourseControllerTest extends WebTestCase
         $this->assertEquals('Bob', $object->author);
         $this->assertEquals('50y', $object->duration);
         $this->assertRegExp('/^\d+-\d+-\d+/', $object->release_date->date);
-        $this->assertEquals(false, $object->isReviewed);
+        $this->assertEquals(false, $object->is_reviewed);
         $this->assertEquals('10zł', $object->price);
         $this->assertEquals('en', $object->language);
         $this->assertEquals('http://sdf.pl/repo', $object->repository_url);
@@ -90,7 +90,7 @@ class CourseControllerTest extends WebTestCase
             'price' => '1000',
             'title' => 'test5',
             'repository_url' => 'test3',
-            'isReviewed' => false
+            'is_reviewed' => false
         ]);
 
         $entityManager->refresh($object);
