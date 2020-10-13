@@ -94,6 +94,11 @@ class Course implements \JsonSerializable
      */
     private $isReviewed;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CourseCategory::class, inversedBy="courses")
+     */
+    private $categories;
+
     public function __construct()
     {
         $this->characteristics = new ArrayCollection();
@@ -101,6 +106,7 @@ class Course implements \JsonSerializable
         $this->technologies = new ArrayCollection();
         $this->ratings = new ArrayCollection();
         $this->sources = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -388,5 +394,31 @@ class Course implements \JsonSerializable
     public function getData()
     {
         return $this->jsonSerialize();
+    }
+
+    /**
+     * @return Collection|CourseCategory[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(CourseCategory $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(CourseCategory $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+        }
+
+        return $this;
     }
 }

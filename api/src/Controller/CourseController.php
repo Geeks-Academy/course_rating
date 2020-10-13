@@ -110,6 +110,22 @@ class CourseController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/categories/{categoryId}", name="add_course_category", methods={"POST"})
+     */
+    public function addCourseCategory(Request $request, int $id, int $categoryId)
+    {
+        // TODO: Implement add course category endpoint
+    }
+
+    /**
+     * @Route("/{id}/categories/{categoryId}", name="remove_course_category", methods={"DELETE"})
+     */
+    public function removeCourseCategory(Request $request, int $id, int $categoryId)
+    {
+        // TODO: Implement remove course category endpoint
+    }
+
+    /**
      * @Route("/{id}/course-technologies", name="add_course_technolog", methods={"POST"})
      */
     public function addCourseTechnology(Request $request, int $id): Response
