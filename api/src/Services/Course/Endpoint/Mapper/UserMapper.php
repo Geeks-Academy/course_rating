@@ -34,6 +34,7 @@ class UserMapper implements Mapper
             Dictionary::RELEASE_DATE    => $this->course->getReleaseDate(),
             Dictionary::URL             => $this->course->getUrl(),
             Dictionary::DURATION        => $this->course->getDuration(),
+            Dictionary::IS_REVIEWED     => $this->course->getIsReviewed(),
 
             Dictionary::LEVEL           => $level
         ];

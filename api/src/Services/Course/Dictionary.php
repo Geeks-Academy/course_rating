@@ -24,5 +24,7 @@ final class Dictionary extends BaseDictionary
 
     public const DURATION = 'duration';
 
+    public const IS_REVIEWED = 'is_reviewed';
+
     public const LEVEL = 'level';
 }
