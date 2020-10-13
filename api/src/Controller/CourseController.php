@@ -126,6 +126,22 @@ class CourseController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/level/{levelId}", name="set_course_level", methods={"POST"})
+     */
+    public function setCourseLevel(Request $request, int $id, int $levelId)
+    {
+        // TODO: Implement set course level endpoint
+    }
+
+    /**
+     * @Route("/{id}/level/{levelId}", name="remove_course_level", methods={"DELETE"})
+     */
+    public function removeCourseLevel(Request $request, int $id, int $levelId)
+    {
+        // TODO: Implement remove course level endpoint
+    }
+
+    /**
      * @Route("/{id}/course-technologies", name="add_course_technolog", methods={"POST"})
      */
     public function addCourseTechnology(Request $request, int $id): Response
