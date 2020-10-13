@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Course;
 use App\Repository\CourseRepository;
 use App\Services\Course\Builder;
+use App\Services\Course\Endpoint\Mapper\UserMapper;
 use App\Services\Course\Updater;
 use App\Services\Validation\ValidationException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,7 +55,7 @@ class CourseController extends AbstractController
         $courses = $this->courseRepository->findAll();
 
         return $this->json(
-            array_map(fn(Course $course) => $course->getData(), $courses)
+            array_map(fn(Course $course) => (new UserMapper($course))->toEndpointFormat(), $courses)
         );
     }
 
@@ -69,20 +70,14 @@ class CourseController extends AbstractController
      */
     public function addCourse(Request $request): Response
     {
-        $data = $this->courseBuilder->getDefaultData();
-
-        foreach ($data as $key => $value) {
-            $data[$key] = $request->get($key, $value);
-        }
-
         $course = $this->courseBuilder
-            ->setData($data)
+            ->setData($request->request->all())
             ->createCourseWithUserPermissions();
 
         $this->entityManager->persist($course);
         $this->entityManager->flush();
 
-        return $this->json($course->getData(), Response::HTTP_CREATED);
+        return $this->json((new UserMapper($course))->toEndpointFormat(), Response::HTTP_CREATED);
     }
 
     /**
@@ -123,6 +118,22 @@ class CourseController extends AbstractController
     public function removeCourseCategory(Request $request, int $id, int $categoryId)
     {
         // TODO: Implement remove course category endpoint
+    }
+
+    /**
+     * @Route("/{id}/levels/{levelId}", name="set_course_level", methods={"POST"})
+     */
+    public function setCourseLevel(Request $request, int $id, int $levelId)
+    {
+        // TODO: Implement set course level endpoint
+    }
+
+    /**
+     * @Route("/{id}/levels/{levelId}", name="remove_course_level", methods={"DELETE"})
+     */
+    public function removeCourseLevel(Request $request, int $id, int $levelId)
+    {
+        // TODO: Implement remove course level endpoint
     }
 
     /**

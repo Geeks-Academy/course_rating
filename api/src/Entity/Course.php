@@ -99,6 +99,11 @@ class Course implements \JsonSerializable
      */
     private $categories;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=CourseLevel::class, inversedBy="courses")
+     */
+    private $level;
+
     public function __construct()
     {
         $this->characteristics = new ArrayCollection();
@@ -418,6 +423,18 @@ class Course implements \JsonSerializable
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
         }
+
+        return $this;
+    }
+
+    public function getLevel(): ?CourseLevel
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?CourseLevel $level): self
+    {
+        $this->level = $level;
 
         return $this;
     }
