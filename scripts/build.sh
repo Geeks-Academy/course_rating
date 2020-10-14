@@ -1,54 +1,48 @@
 #!/bin/bash
 
-# Get dir of current file
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+# Include base
+source $(dirname $0)/_base.sh
 
-# Set the root dir
-ROOT="$(realpath $DIR/../)"
-
-# Set the api dir
-API="$(realpath $ROOT/api)"
-
-# Get the app env variable
-APP_ENV=$1
-
-# Go to the root directory
-cd $ROOT;
-
-# Create configuration files
-if [ -f "$ROOT/.env" ]
-  then
-    echo "Configuration exists, skipping."
+# Create configuration
+if [ ! -f $ROOT_PATH/.env ]; then
+    cp $ROOT_PATH/.env.$APP_ENV.example $ROOT_PATH/.env
   else
-    cp $ROOT/.env.$1.example $ROOT/.env
+    echo "Configuration exists, skipping"
 fi
 
-if [ -f "$API/.env" ]
-  then
-    echo "Configuration exists, skipping."
-  else
-    cp $API/.env.$1 $API/.env
+# Create server log path for nginx
+if [ ! -f $SERVER_PATH/logs/access.log ]; then
+    touch $SERVER_PATH/logs/access.log
 fi
 
-declare -A environments=(
-  ["test"]="testing"
-  ["dev"]="development"
-)
+if [ ! -f $SERVER_PATH/logs/error.log ]; then
+    touch $SERVER_PATH/logs/error.log
+fi
 
-# Build project
-docker-compose -f docker-compose.yml -f docker-compose.${environments[$APP_ENV]}.yml build
+cd $ROOT_PATH;
 
+# Download containers
+docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml pull
+
+# Build containers
+docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml build
+
+# Set status of the build
 BUILD_STATUS=$?
 
 if [ $BUILD_STATUS -gt 0 ]; then
-  printf "\n\033[0;31mBuild failed\n\n"
-
-  exit $BUILD_STATUS
+    echo "Build failed for the \"${APP_ENV}\" environment." && exit $BUILD_STATUS
 fi
 
-# Initialize container dependencies
-docker-compose -f docker-compose.yml -f docker-compose.${environments[$APP_ENV]}.yml up -d
+# Initialize containers
+docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml up -d
 
+# Install composer if run as development
+if [ $APP_ENV == 'dev' ]; then
+    docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml exec api composer install
+fi
+
+# Halt containers
 docker-compose stop
 
-exit 0
+exit $BUILD_STATUS;
