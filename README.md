@@ -20,14 +20,14 @@ Allows you to quick setup development environment
     - First, you have to create `.env` file from `.env.example`
     - Configure `.env` variables
         ```
-        ###> docker/dev ###
-        # Set a port where the app should be served on your localhost
-        APP_PORT=8080
+        ###> docker/app ###
+        # Set a dev env to start the server in development mode
+        APP_ENV=dev
 
-        # Set a port where the database should be served on your localhost
-        DB_PORT=3310
-        ###< docker/dev ###
-
+        # Set your host user id (Linux/MacOS)
+        USER_ID=1000
+        ###< docker/app ###
+      
         ###> docker/mysql ###
         # Set the database user name
         MYSQL_USER=user
@@ -44,33 +44,36 @@ Allows you to quick setup development environment
         # It should be untouched if its running in docker
         MYSQL_HOST=database:3306
         ###< docker/mysql ###
+      
+        ###> docker/dev ###
+        # Set a port where the app should be served on your localhost
+        APP_PORT=8080
+
+        # Set a port where the database should be served on your localhost
+        DB_PORT=3310
+        ###< docker/dev ###
         ```
 
 - Build images using
     ```
-    docker-compose -f docker-compose.yml -f docker-compose.development.yml build
+    ./scripts/build.sh -e dev
     ```
-
-- Download dependencies using
-    ```
-    docker-compose -f docker-compose.yml -f docker-compose.development.yml run --no-deps api /bin/bash -c "composer install"
-    ```
-
+  
 - Start development server
     ```
-    docker-compose -f docker-compose.yml -f docker-compose.development.yml up -d
+    ./scripts/start.sh -e dev
     ```
     > Website will be available on `localhost:APP_PORT` (host).
 
 - Access container environment
     - If it's running
       ```
-      docker-compose exec api /bin/bash
+      ./scripts/shell.sh api
       ```
 
     - If it's not running (without database access)
       ```
-      docker-compose -f docker-compose.yml -f docker-compose.development.yml run --no-deps api /bin/bash
+      docker-compose -f docker-compose.yml -f docker-compose.dev.yml run --no-deps api /bin/bash
       ```
 
     > If you want to stop the server, type

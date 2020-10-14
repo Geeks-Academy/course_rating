@@ -1,13 +1,10 @@
-#!/bin/bash
+# Include base
+source $(dirname $0)/_base.sh
 
-# Get dir of current file
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd $ROOT_PATH
 
-# Set the root dir
-ROOT="$(realpath $DIR/../)"
-
-# Setup project
-docker-compose -f docker-compose.yml -f docker-compose.testing.yml up -d
+# Start container
+docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml up -d
 
 # Initialize database
 docker-compose exec -T api php bin/console doctrine:database:create --if-not-exists
@@ -18,16 +15,15 @@ docker-compose exec -T api php bin/console doctrine:schema:update --force
 # Execute tests
 docker-compose exec -T api ./vendor/bin/simple-phpunit
 
-API_STATUS=$?
+TEST_STATUS=$?
 
-# Terminate project
 docker-compose stop
 
-if [ $API_STATUS -gt 0 ]
+if [ $TEST_STATUS -gt 0 ]
   then
     printf "\n\033[0;31mTests failed\n\n"
   else
     printf "\n\033[0;32mTests succeed\033[0m\n\n"
 fi
 
-exit $API_STATUS
+exit $TEST_STATUS
