@@ -2,5 +2,6 @@
   "singleQuote": true,
   "printWidth": 100,
   "jsxBracketSameLine": false,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "endOfLine":"auto"
 }
