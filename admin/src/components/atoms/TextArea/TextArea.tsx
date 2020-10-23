@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
-import { StyledTextArea } from './TextArea.styled';
+import { StyledContainer, StyledLabel, StyledTextArea } from './TextArea.styled';
+import { IProps } from './TextArea.model';
 
-export interface IProps {
-  className?: string;
-  placeholder?: string;
-}
-
-const TextArea = ({ className, placeholder = 'Type something...' }: IProps): JSX.Element => {
+const TextArea = ({
+  className,
+  placeholder = 'Type something...',
+  name,
+  id,
+  htmlFor,
+  label,
+}: IProps): JSX.Element => {
   const [value, setValue] = useState<string>('');
-
+  const renderLabel = () => label && <StyledLabel htmlFor={htmlFor}>{label}</StyledLabel>;
   return (
-    <StyledTextArea
-      className={className}
-      data-testid="textarea"
-      placeholder={placeholder}
-      value={value}
-      onChange={({ target }: React.ChangeEvent<HTMLTextAreaElement>): void =>
-        setValue(target.value)
-      }
-    />
+    <StyledContainer>
+      {renderLabel()}
+      <StyledTextArea
+        className={className}
+        data-testid="textarea"
+        placeholder={placeholder}
+        name={name}
+        id={id}
+        value={value}
+        onChange={({ target }: React.ChangeEvent<HTMLTextAreaElement>): void =>
+          setValue(target.value)
+        }
+      />
+    </StyledContainer>
   );
 };
 
