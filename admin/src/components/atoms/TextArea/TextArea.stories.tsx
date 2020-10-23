@@ -23,6 +23,10 @@ export default {
       defaultValue: 'Textarea',
       type: 'string',
     },
+    label: {
+      defaultValue: 'Example TextArea',
+      type: 'string',
+    },
   },
   className: {
     control: {
@@ -31,14 +35,8 @@ export default {
   },
 } as Meta;
 
-export const Default = ({ placeholder, name, id, htmlFor }: IProps): JSX.Element => (
-  <TextArea
-    placeholder={placeholder}
-    name={name}
-    id={id}
-    htmlFor={htmlFor}
-    label="Example TextArea"
-  />
+export const Default = ({ placeholder, name, id, htmlFor, label }: IProps): JSX.Element => (
+  <TextArea placeholder={placeholder} name={name} id={id} htmlFor={htmlFor} label={label} />
 );
 
 export const TextAreaWithoutLabel = ({ placeholder, name, id, htmlFor }: IProps): JSX.Element => (
