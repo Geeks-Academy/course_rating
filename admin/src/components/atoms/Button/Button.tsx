@@ -8,15 +8,35 @@ const Button = ({ children, className, type }: IButton): JSX.Element => {
   };
   switch (type) {
     case 'outline':
-      return <OutlineButton className={className}>{content()}</OutlineButton>;
+      return (
+        <OutlineButton data-testid="outline" className={className}>
+          {content()}
+        </OutlineButton>
+      );
     case 'disabled':
-      return <DisableButton className={className}>{content()}</DisableButton>;
+      return (
+        <DisableButton data-testid="disabled" className={className}>
+          {content()}
+        </DisableButton>
+      );
     case 'transparent':
-      return <TransparentButton className={className}>{content()}</TransparentButton>;
+      return (
+        <TransparentButton data-testid="transparent" className={className}>
+          {content()}
+        </TransparentButton>
+      );
     case 'fill':
-      return <FillButton className={className}>{content()}</FillButton>;
+      return (
+        <FillButton data-testid="fill" className={className}>
+          {content()}
+        </FillButton>
+      );
     default:
-      return <FillButton className={className}>{content()}</FillButton>;
+      return (
+        <FillButton data-testid="fill" className={className}>
+          {content()}
+        </FillButton>
+      );
   }
 };
 
