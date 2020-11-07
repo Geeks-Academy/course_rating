@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CourseCharacteristicRepository::class)
+ * @ORM\Object(repositoryClass=CourseCharacteristicRepository::class)
  */
 class CourseCharacteristic implements \JsonSerializable
 {

@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CourseLevelRepository::class)
+ * @ORM\Object(repositoryClass=CourseLevelRepository::class)
  */
 class CourseLevel
 {

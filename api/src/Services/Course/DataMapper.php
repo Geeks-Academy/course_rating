@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Services\Course\Endpoint\Mapper;
+namespace App\Services\Course;
 
 use App\Entity\Course;
-use App\Services\Course\Dictionary;
-use App\Services\Course\Level\Endpoint\Mapper\UserMapper as LevelUserMapper;
 use App\Services\Mapper;
 
-class UserMapper implements Mapper
+class DataMapper implements Mapper
 {
     private Course $course;
 
@@ -18,12 +16,6 @@ class UserMapper implements Mapper
 
     public function toEndpointFormat(): array
     {
-        $level = null;
-
-        if($this->course->getLevel()) {
-            $level = (new LevelUserMapper($this->course->getLevel()))->toEndpointFormat();
-        }
-
         return [
             Dictionary::REPOSITORY_URL  => $this->course->getRepositoryUrl(),
             Dictionary::LANGUAGE        => $this->course->getLanguage(),
@@ -35,8 +27,6 @@ class UserMapper implements Mapper
             Dictionary::URL             => $this->course->getUrl(),
             Dictionary::DURATION        => $this->course->getDuration(),
             Dictionary::IS_REVIEWED     => $this->course->getIsReviewed(),
-
-            Dictionary::LEVEL           => $level
         ];
     }
 

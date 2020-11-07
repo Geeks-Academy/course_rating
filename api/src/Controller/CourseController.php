@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Course;
 use App\Repository\CourseRepository;
-use App\Services\Course\Builder;
-use App\Services\Course\Endpoint\Mapper\UserMapper;
-use App\Services\Course\Updater;
+use App\Services\Course\CourseBuilder;
+use App\Services\Course\DataMapper;
+use App\Services\Course\CourseUpdater;
 use App\Services\Validation\ValidationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,27 +22,24 @@ class CourseController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
     private CourseRepository $courseRepository;
-    private Builder $courseBuilder;
-    private Updater $courseUpdater;
+    private CourseBuilder $courseBuilder;
+    private CourseUpdater $courseUpdater;
 
     /**
      * CourseController constructor.
      *
      * @param CourseRepository $courseRepository
-     * @param Builder $courseBuilder
-     * @param Updater $courseUpdater
-     * @param EntityManagerInterface $entityManager
+     * @param CourseBuilder $courseBuilder
+     * @param CourseUpdater $courseUpdater
      */
     public function __construct(
         CourseRepository $courseRepository,
-        Builder $courseBuilder,
-        Updater $courseUpdater,
-        EntityManagerInterface $entityManager
+        CourseBuilder $courseBuilder,
+        CourseUpdater $courseUpdater
     ) {
         $this->courseRepository = $courseRepository;
         $this->courseBuilder = $courseBuilder;
         $this->courseUpdater = $courseUpdater;
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -55,7 +52,7 @@ class CourseController extends AbstractController
         $courses = $this->courseRepository->findAll();
 
         return $this->json(
-            array_map(fn(Course $course) => (new UserMapper($course))->toEndpointFormat(), $courses)
+            array_map(fn(Course $course) => (new DataMapper($course))->toEndpointFormat(), $courses)
         );
     }
 
@@ -77,7 +74,7 @@ class CourseController extends AbstractController
         $this->entityManager->persist($course);
         $this->entityManager->flush();
 
-        return $this->json((new UserMapper($course))->toEndpointFormat(), Response::HTTP_CREATED);
+        return $this->json((new DataMapper($course))->toEndpointFormat(), Response::HTTP_CREATED);
     }
 
     /**

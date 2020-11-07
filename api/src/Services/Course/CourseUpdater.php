@@ -8,7 +8,7 @@ use App\Services\Validation\ValidationException;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class Updater
+class CourseUpdater
 {
     use ValidatesEntity;
 
@@ -21,7 +21,7 @@ class Updater
     private bool $isTerminated = false;
 
     /**
-     * Updater constructor.
+     * CourseUpdater constructor.
      *
      * @param ValidatorInterface $validator
      */
@@ -62,7 +62,7 @@ class Updater
         }
 
         if(!$course->getId()) {
-            throw new Exception("Entity should be stored in the database before any update.");
+            throw new Exception("Object should be stored in the database before any update.");
         }
 
         $this->course = $course;
@@ -76,14 +76,14 @@ class Updater
     private function checkIfEntityWasProvided()
     {
         if(!$this->course) {
-            throw new Exception("Entity should be provided before any update.");
+            throw new Exception("Object should be provided before any update.");
         }
     }
 
     private function checkIfActionIsNotTerminated()
     {
         if($this->isTerminated) {
-            throw new Exception("Entity was already updated.");
+            throw new Exception("Object was already updated.");
         }
     }
 

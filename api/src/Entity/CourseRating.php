@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CourseRatingRepository::class)
+ * @ORM\Object(repositoryClass=CourseRatingRepository::class)
  */
 class CourseRating
 {
