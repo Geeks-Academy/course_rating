@@ -6,7 +6,7 @@ use App\Repository\CourseSourceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Object(repositoryClass=CourseSourceRepository::class)
+ * @ORM\Entity(repositoryClass=CourseSourceRepository::class)
  */
 class CourseSource
 {

@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CourseCategoryRepository;
+use App\Repository\CourseAreaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CourseCategoryRepository::class)
+ * @ORM\Entity(repositoryClass=CourseAreaRepository::class)
  */
-class CourseCategory
+class CourseArea
 {
     /**
      * @ORM\Id
@@ -25,13 +25,24 @@ class CourseCategory
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Course::class, mappedBy="category")
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Course::class, inversedBy="areas")
      */
     private $courses;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=CourseTechnology::class, inversedBy="areas")
+     */
+    private $technologies;
 
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        $this->technologies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,6 +62,18 @@ class CourseCategory
         return $this;
     }
 
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Course[]
      */
@@ -63,7 +86,6 @@ class CourseCategory
     {
         if (!$this->courses->contains($course)) {
             $this->courses[] = $course;
-            $course->addCategory($this);
         }
 
         return $this;
@@ -73,7 +95,32 @@ class CourseCategory
     {
         if ($this->courses->contains($course)) {
             $this->courses->removeElement($course);
-            $course->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseTechnology[]
+     */
+    public function getTechnologies(): Collection
+    {
+        return $this->technologies;
+    }
+
+    public function addTechnology(CourseTechnology $technology): self
+    {
+        if (!$this->technologies->contains($technology)) {
+            $this->technologies[] = $technology;
+        }
+
+        return $this;
+    }
+
+    public function removeTechnology(CourseTechnology $technology): self
+    {
+        if ($this->technologies->contains($technology)) {
+            $this->technologies->removeElement($technology);
         }
 
         return $this;

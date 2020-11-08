@@ -6,7 +6,7 @@ use App\Repository\CourseRatingCriterionReferenceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Object(repositoryClass=CourseRatingCriterionReferenceRepository::class)
+ * @ORM\Entity(repositoryClass=CourseRatingCriterionReferenceRepository::class)
  */
 class CourseRatingCriterionReference
 {

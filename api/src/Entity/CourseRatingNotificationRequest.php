@@ -6,7 +6,7 @@ use App\Repository\CourseRatingNotificationRequestRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Object(repositoryClass=CourseRatingNotificationRequestRepository::class)
+ * @ORM\Entity(repositoryClass=CourseRatingNotificationRequestRepository::class)
  */
 class CourseRatingNotificationRequest
 {

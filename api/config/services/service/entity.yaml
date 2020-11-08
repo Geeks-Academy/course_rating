@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Service\Entity\Course\CourseBuilder:
+        arguments:
+            $object: '@App\Entity\Course'
+
+    App\Service\Entity\Course\CourseUpdater:
+        autowire: false
+
+    App\Service\Entity\CourseArea\CourseAreaBuilder:
+        arguments:
+            $object: '@App\Entity\CourseArea'
+
+    App\Service\Entity\CourseArea\CourseAreaUpdater:
+        autowire: false

@@ -4,16 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Course;
 use App\Repository\CourseRepository;
-use App\Services\Course\CourseBuilder;
-use App\Services\Course\DataMapper;
-use App\Services\Course\CourseUpdater;
-use App\Services\Validation\ValidationException;
+use App\Service\Entity\Course\CourseBuilder;
+use App\Service\Entity\Course\CourseFormatter;
+use App\Service\Entity\Course\CourseUpdater;
+use App\Service\Validation\ValidationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/api/courses", name="api_courses_")
@@ -23,23 +24,26 @@ class CourseController extends AbstractController
     private EntityManagerInterface $entityManager;
     private CourseRepository $courseRepository;
     private CourseBuilder $courseBuilder;
-    private CourseUpdater $courseUpdater;
+    private ValidatorInterface $validator;
 
     /**
      * CourseController constructor.
      *
      * @param CourseRepository $courseRepository
      * @param CourseBuilder $courseBuilder
-     * @param CourseUpdater $courseUpdater
+     * @param ValidatorInterface $validator
+     * @param EntityManagerInterface $entityManager
      */
     public function __construct(
         CourseRepository $courseRepository,
         CourseBuilder $courseBuilder,
-        CourseUpdater $courseUpdater
+        ValidatorInterface $validator,
+        EntityManagerInterface $entityManager
     ) {
         $this->courseRepository = $courseRepository;
         $this->courseBuilder = $courseBuilder;
-        $this->courseUpdater = $courseUpdater;
+        $this->validator = $validator;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -52,7 +56,7 @@ class CourseController extends AbstractController
         $courses = $this->courseRepository->findAll();
 
         return $this->json(
-            array_map(fn(Course $course) => (new DataMapper($course))->toEndpointFormat(), $courses)
+            array_map(fn(Course $course) => (new CourseFormatter($course))->toJsonFormat(), $courses)
         );
     }
 
@@ -60,21 +64,20 @@ class CourseController extends AbstractController
      * @Route("", name="add", methods={"POST"})
      *
      * @param Request $request
-     *
      * @return Response
-     *
      * @throws ValidationException
      */
     public function addCourse(Request $request): Response
     {
+        /** @var Course $course */
         $course = $this->courseBuilder
             ->setData($request->request->all())
-            ->createCourseWithUserPermissions();
+            ->build();
 
         $this->entityManager->persist($course);
         $this->entityManager->flush();
 
-        return $this->json((new DataMapper($course))->toEndpointFormat(), Response::HTTP_CREATED);
+        return $this->json((new CourseFormatter($course))->toArrayFormat(), Response::HTTP_CREATED);
     }
 
     /**
@@ -82,17 +85,14 @@ class CourseController extends AbstractController
      *
      * @param Request $request
      * @param int $id
-     *
      * @return JsonResponse
-     *
      * @throws ValidationException
      */
     public function editCourse(Request $request, int $id)
     {
         $course = $this->courseRepository->find($id);
 
-        $this->courseUpdater
-            ->setCourse($course)
+        (new CourseUpdater($this->validator, $course))
             ->setData($request->request->all())
             ->update();
 

@@ -6,7 +6,7 @@ use App\Repository\UserRatingRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Object(repositoryClass=UserRatingRepository::class)
+ * @ORM\Entity(repositoryClass=UserRatingRepository::class)
  */
 class UserRating
 {
