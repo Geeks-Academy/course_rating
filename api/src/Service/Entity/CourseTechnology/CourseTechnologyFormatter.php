@@ -40,12 +40,12 @@ class CourseTechnologyFormatter extends AbstractFormatter
     protected function getData(): array
     {
         return [
-            'id'          => $this->technology->getId(),
-            'title'       => $this->technology->getTitle(),
-            'description' => $this->technology->getDescription(),
-            'logo'        => $this->technology->getLogo(),
-            'courses'     => fn() => $this->getCourses(),
-            'areas'       => fn() => $this->getAreas()
+            CourseTechnologyDictionary::ID          => $this->technology->getId(),
+            CourseTechnologyDictionary::TITLE       => $this->technology->getTitle(),
+            CourseTechnologyDictionary::DESCRIPTION => $this->technology->getDescription(),
+            CourseTechnologyDictionary::LOGO        => $this->technology->getLogo(),
+            CourseTechnologyDictionary::COURSES     => fn() => $this->getCourses(),
+            CourseTechnologyDictionary::AREAS       => fn() => $this->getAreas()
         ];
     }
 }

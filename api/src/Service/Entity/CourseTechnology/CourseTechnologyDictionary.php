@@ -8,7 +8,7 @@ class CourseTechnologyDictionary extends AbstractDictionary
 {
     public const ID = 'id';
 
-    public const NAME = 'name';
+    public const TITLE = 'title';
 
     public const DESCRIPTION = 'description';
 

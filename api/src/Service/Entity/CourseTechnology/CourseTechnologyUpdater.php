@@ -9,7 +9,7 @@ class CourseTechnologyUpdater extends AbstractObjectUpdater
     public function getAvailable(): array
     {
         return [
-            CourseTechnologyDictionary::NAME,
+            CourseTechnologyDictionary::TITLE,
             CourseTechnologyDictionary::DESCRIPTION,
             CourseTechnologyDictionary::LOGO,
             CourseTechnologyDictionary::CODE

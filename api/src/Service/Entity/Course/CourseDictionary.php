@@ -6,6 +6,8 @@ use App\Service\Object\AbstractDictionary;
 
 final class CourseDictionary extends AbstractDictionary
 {
+    public const ID = 'id';
+
     public const REPOSITORY_URL = 'repository_url';
 
     public const LANGUAGE = 'language';

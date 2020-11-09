@@ -12,7 +12,7 @@ class CourseTechnologyBuilder extends AbstractObjectBuilder
             CourseTechnologyDictionary::CODE        => 1,
             CourseTechnologyDictionary::LOGO        => '',
             CourseTechnologyDictionary::DESCRIPTION => 'Default description',
-            CourseTechnologyDictionary::NAME        => 'Technology',
+            CourseTechnologyDictionary::TITLE        => 'Technology',
         ];
     }
 }

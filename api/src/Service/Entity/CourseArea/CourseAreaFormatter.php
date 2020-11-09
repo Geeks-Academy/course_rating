@@ -5,11 +5,17 @@ namespace App\Service\Entity\CourseArea;
 use App\Entity\Course;
 use App\Entity\CourseArea;
 use App\Service\Entity\Course\CourseFormatter;
+use App\Service\Entity\CourseTechnology\CourseTechnologyFormatter;
 use App\Service\Object\AbstractFormatter;
 
 class CourseAreaFormatter extends AbstractFormatter
 {
     private CourseArea $area;
+
+    protected array $relations = [
+        'courses',
+        'technologies'
+    ];
 
     /**
      * CourseAreaFormatter constructor.
@@ -27,13 +33,21 @@ class CourseAreaFormatter extends AbstractFormatter
         );
     }
 
+    protected function getTechnologies()
+    {
+        return array_map(
+            fn(Course $course) => new CourseTechnologyFormatter($course), $this->area->getCourses()->toArray()
+        );
+    }
+
     protected function getData(): array
     {
         return [
-            'id'        => $this->area->getId(),
-            'name'      => $this->area->getName(),
-            'is_active' => $this->area->getIsActive(),
-            'courses'   => fn() => $this->getCourses()
+            CourseAreaDictionary::ID           => $this->area->getId(),
+            CourseAreaDictionary::NAME         => $this->area->getName(),
+            CourseAreaDictionary::IS_ACTIVE    => $this->area->getIsActive(),
+            CourseAreaDictionary::COURSES      => fn() => $this->getCourses(),
+            CourseAreaDictionary::TECHNOLOGIES => fn() => $this->getTechnologies()
         ];
     }
 }
