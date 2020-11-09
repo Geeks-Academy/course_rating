@@ -42,28 +42,34 @@ class CourseAreaController extends AbstractController
     /**
      * @Route("", name="list", methods={"GET"})
      *
-     * @return Response
+     * @return JsonResponse
      */
-    public function courseAreasList()
+    public function courseAreasList(): JsonResponse
     {
         $areas = $this->courseAreaRepository->findAll();
 
-        return $this->json(
-            ['data' => array_map(fn(CourseArea $area) => $this->toArray($area), $areas)]
-        );
+        return $this->json([
+            'data' => [
+                'areas' => array_map(
+                    fn(CourseArea $area) => $this->toArray($area), $areas
+                )
+            ]
+        ]);
     }
 
     /**
      * @Route("/{id}", name="find", methods={"GET"})
      *
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      */
-    public function courseAreasFind(int $id)
+    public function courseAreasFind(int $id): JsonResponse
     {
-        return $this->json(
-            ['data' => $this->toArray($this->courseAreaRepository->find($id))]
-        );
+        return $this->json([
+            'data' => [
+                'area' => $this->toArray($this->courseAreaRepository->find($id))
+            ]
+        ]);
     }
 
     /**
@@ -73,7 +79,7 @@ class CourseAreaController extends AbstractController
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function addCourseArea(Request $request)
+    public function addCourseArea(Request $request): JsonResponse
     {
         /** @var CourseArea $area */
         $area = $this->courseAreaBuilder
@@ -83,9 +89,11 @@ class CourseAreaController extends AbstractController
         $this->entityManager->persist($area);
         $this->entityManager->flush();
 
-        return $this->json(
-            ['data' => $this->toArray($area)], Response::HTTP_CREATED
-        );
+        return $this->json([
+            'data' => [
+                'area' => $this->toArray($area)
+            ]
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -96,7 +104,7 @@ class CourseAreaController extends AbstractController
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function editCourseArea(Request $request, int $id): Response
+    public function editCourseArea(Request $request, int $id): JsonResponse
     {
         $area = $this->courseAreaRepository->find($id);
 
@@ -107,9 +115,11 @@ class CourseAreaController extends AbstractController
         $this->entityManager->persist($area);
         $this->entityManager->flush();
 
-        return $this->json(
-            ['data' => $this->toArray($area)], Response::HTTP_OK
-        );
+        return $this->json([
+            'data' => [
+                'area' => $this->toArray($area)
+            ]
+        ]);
     }
 
     /**
@@ -118,7 +128,7 @@ class CourseAreaController extends AbstractController
      * @param int $id
      * @return JsonResponse
      */
-    public function removeCourseArea(int $id)
+    public function removeCourseArea(int $id): JsonResponse
     {
         $area = $this->courseAreaRepository->find($id);
 

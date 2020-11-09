@@ -47,6 +47,23 @@ class CourseController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", name="find", methods={"GET"})
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function coursesFind(int $id): Response
+    {
+        $course = $this->courseRepository->find($id);
+
+        return $this->json([
+            'data' => [
+                'course' => $this->courseToArray($course)
+            ]
+        ]);
+    }
+
+    /**
      * @Route("", name="list", methods={"GET"})
      *
      * @return Response
@@ -55,9 +72,13 @@ class CourseController extends AbstractController
     {
         $courses = $this->courseRepository->findAll();
 
-        return $this->json(
-            array_map(fn(Course $course) => (new CourseFormatter($course))->toJsonFormat(), $courses)
-        );
+        return $this->json([
+            'data' => [
+                'courses' => array_map(
+                    fn(Course $course) => $this->courseToArray($course), $courses
+                )
+            ]
+        ]);
     }
 
     /**
@@ -77,7 +98,11 @@ class CourseController extends AbstractController
         $this->entityManager->persist($course);
         $this->entityManager->flush();
 
-        return $this->json((new CourseFormatter($course))->toArrayFormat(), Response::HTTP_CREATED);
+        return $this->json([
+            'data' => [
+                'courses' => $this->courseToArray($course)
+            ]
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -98,7 +123,27 @@ class CourseController extends AbstractController
 
         $this->entityManager->flush();
 
-        return $this->json(true);
+        return $this->json([
+            'data' => [
+                'course' => $this->courseToArray($course)
+            ]
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="remove", methods={"DELETE"})
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function courseRemove(int $id)
+    {
+        $course = $this->courseRepository->find($id);
+
+        $this->entityManager->remove($course);
+        $this->entityManager->flush();
+
+        return $this->json([], Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -179,5 +224,10 @@ class CourseController extends AbstractController
     public function removeCourseTranslation(Request $request, int $id, int $courseTranslationId): Response
     {
         return $this->json(true);
+    }
+
+    private function courseToArray(Course $course)
+    {
+        return (new CourseFormatter($course))->toArrayFormat();
     }
 }

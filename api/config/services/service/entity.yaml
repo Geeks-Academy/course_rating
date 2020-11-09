@@ -16,3 +16,10 @@ services:
 
     App\Service\Entity\CourseArea\CourseAreaUpdater:
         autowire: false
+
+    App\Service\Entity\CourseTechnology\CourseTechnologyBuilder:
+        arguments:
+            $object: '@App\Entity\CourseTechnology'
+
+    App\Service\Entity\CourseTechnology\CourseTechnologyUpdater:
+        autowire: false

@@ -2,13 +2,18 @@
 
 namespace App\Service\Object;
 
-use JsonSerializable;
-
-abstract class AbstractFormatter implements JsonSerializable
+abstract class AbstractFormatter
 {
     private array $skip = [];
 
     private array $with = [];
+
+    /**
+     * Override this to set allow calling your callback relations
+     *
+     * @var array
+     */
+    protected array $relations = [];
 
     abstract protected function getData(): array;
 
@@ -38,22 +43,55 @@ abstract class AbstractFormatter implements JsonSerializable
         return $newWith;
     }
 
-    public function with(string ...$key): self
+    /**
+     * Loads your closure based relation
+     *
+     * @param string ...$keys
+     * @return $this
+     */
+    public function with(string ...$keys): self
     {
+        $config = $this->configToArray($keys);
+
         $this->with = $this->merge(
-            $this->with, $this->configToArray($key)
+            $this->with, $this->filter($config, $this->configToArray($this->relations))
         );
 
         return clone $this;
     }
 
-    public function skip(string ...$key): self
+    public function skip(string ...$keys): self
     {
         $this->skip = $this->merge(
-            $this->skip, $this->configToArray($key)
+            $this->skip, $this->configToArray($keys)
         );
 
         return $this;
+    }
+
+    private function filter(array $config, array $accepts)
+    {
+        $accepted = [];
+
+        foreach ($accepts as $accept) {
+            $accepted[] = array_reduce(
+                array_map(
+                    function ($entry) use ($accept) {
+                        return array_intersect_assoc($entry, $accept);
+                    },
+                    $config
+                ),
+                function (array $carry, array $item) {
+                    if(count($item) > count($carry)) {
+                        return $item;
+                    }
+
+                    return $carry;
+                }, []
+            );
+        }
+
+        return $accepted;
     }
 
     private function merge(array $config, array $toMerge): array
@@ -186,11 +224,6 @@ abstract class AbstractFormatter implements JsonSerializable
         return $resolvedData;
     }
 
-    public function jsonSerialize()
-    {
-        return json_encode($this->toArrayFormat());
-    }
-
     public function toArrayFormat(): array
     {
         return $this->resolveToArray(
@@ -198,8 +231,4 @@ abstract class AbstractFormatter implements JsonSerializable
         );
     }
 
-    public function toJsonFormat(): string
-    {
-        return $this->jsonSerialize();
-    }
 }

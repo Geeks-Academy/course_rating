@@ -20,15 +20,20 @@ class CourseAreaFormatter extends AbstractFormatter
         $this->area = $area;
     }
 
+    protected function getCourses()
+    {
+        return array_map(
+            fn(Course $course) => new CourseFormatter($course), $this->area->getCourses()->toArray()
+        );
+    }
+
     protected function getData(): array
     {
         return [
-            CourseAreaDictionary::ID        => $this->area->getId(),
-            CourseAreaDictionary::NAME      => $this->area->getName(),
-            CourseAreaDictionary::IS_ACTIVE => $this->area->getIsActive(),
-            CourseAreaDictionary::COURSES   => array_map(
-                fn(Course $course) => new CourseFormatter($course), $this->area->getCourses()->toArray()
-            )
+            'id'        => $this->area->getId(),
+            'name'      => $this->area->getName(),
+            'is_active' => $this->area->getIsActive(),
+            'courses'   => fn() => $this->getCourses()
         ];
     }
 }
