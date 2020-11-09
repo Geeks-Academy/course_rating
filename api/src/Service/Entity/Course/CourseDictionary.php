@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Course;
+namespace App\Service\Entity\Course;
 
-use App\Services\Dictionary as BaseDictionary;
+use App\Service\Object\AbstractDictionary;
 
-final class Dictionary extends BaseDictionary
+final class CourseDictionary extends AbstractDictionary
 {
     public const REPOSITORY_URL = 'repository_url';
 
@@ -26,5 +26,5 @@ final class Dictionary extends BaseDictionary
 
     public const IS_REVIEWED = 'is_reviewed';
 
-    public const LEVEL = 'level';
+    public const AREAS = 'areas';
 }

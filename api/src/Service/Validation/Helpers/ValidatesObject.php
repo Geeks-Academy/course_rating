@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Services\Validation\Helpers;
+namespace App\Service\Validation\Helpers;
 
-use App\Services\Validation\ValidationException;
+use App\Service\Validation\ValidationException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-trait ValidatesEntity
+trait ValidatesObject
 {
     /**
      * @param object $entity
      * @param ValidatorInterface $validator
      * @throws ValidationException
      */
-    protected function validateEntity(object $entity, ValidatorInterface $validator)
+    protected function validateObject(object $entity, ValidatorInterface $validator)
     {
         $errors = $validator->validate($entity);
 

@@ -104,6 +104,11 @@ class Course implements \JsonSerializable
      */
     private $level;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CourseArea::class, mappedBy="courses")
+     */
+    private $areas;
+
     public function __construct()
     {
         $this->characteristics = new ArrayCollection();
@@ -112,6 +117,7 @@ class Course implements \JsonSerializable
         $this->ratings = new ArrayCollection();
         $this->sources = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->areas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -435,6 +441,34 @@ class Course implements \JsonSerializable
     public function setLevel(?CourseLevel $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseArea[]
+     */
+    public function getAreas(): Collection
+    {
+        return $this->areas;
+    }
+
+    public function addArea(CourseArea $area): self
+    {
+        if (!$this->areas->contains($area)) {
+            $this->areas[] = $area;
+            $area->addCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArea(CourseArea $area): self
+    {
+        if ($this->areas->contains($area)) {
+            $this->areas->removeElement($area);
+            $area->removeCourse($this);
+        }
 
         return $this;
     }

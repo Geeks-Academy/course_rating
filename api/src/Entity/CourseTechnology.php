@@ -44,9 +44,15 @@ class CourseTechnology
      */
     private $courses;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CourseArea::class, mappedBy="technologies")
+     */
+    private $areas;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        $this->areas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,6 +131,34 @@ class CourseTechnology
         if ($this->courses->contains($course)) {
             $this->courses->removeElement($course);
             $course->removeTechnology($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseArea[]
+     */
+    public function getAreas(): Collection
+    {
+        return $this->areas;
+    }
+
+    public function addArea(CourseArea $area): self
+    {
+        if (!$this->areas->contains($area)) {
+            $this->areas[] = $area;
+            $area->addTechnology($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArea(CourseArea $area): self
+    {
+        if ($this->areas->contains($area)) {
+            $this->areas->removeElement($area);
+            $area->removeTechnology($this);
         }
 
         return $this;

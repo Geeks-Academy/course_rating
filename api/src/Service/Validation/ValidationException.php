@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Validation;
+namespace App\Service\Validation;
 
 use Exception;
 
