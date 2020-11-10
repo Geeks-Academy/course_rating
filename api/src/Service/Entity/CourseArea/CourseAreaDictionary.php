@@ -13,4 +13,6 @@ final class CourseAreaDictionary extends AbstractDictionary
     public const IS_ACTIVE = 'is_active';
 
     public const COURSES = 'courses';
+
+    public const TECHNOLOGIES = 'technologies';
 }
