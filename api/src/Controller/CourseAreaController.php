@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use OpenApi\Annotations as OA;
 
 /**
  * @Route("/api/course-areas", name="api_course-areas_")
@@ -41,6 +42,25 @@ class CourseAreaController extends AbstractController
 
     /**
      * @Route("", name="list", methods={"GET"})
+     * @OA\Response(
+     *     response="200",
+     *     description="Course areas has been fetched",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(
+     *             type="object",
+     *             property="data",
+     *             @OA\Property(
+     *                 type="array",
+     *                 property="areas",
+     *                 @OA\Items(
+     *                     ref="#/components/schemas/Course Area"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     * @OA\Tag(name="Course Areas")
      *
      * @return JsonResponse
      */
@@ -59,6 +79,24 @@ class CourseAreaController extends AbstractController
 
     /**
      * @Route("/{id}", name="find", methods={"GET"})
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Identifier of the course area",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Response(
+     *     response="200",
+     *     description="Course area has been found",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(
+     *             property="data",
+     *             @OA\Property(property="area", type="object", ref="#/components/schemas/Course Area")
+     *         )
+     *     )
+     * )
+     * @OA\Tag(name="Course Areas")
      *
      * @param int $id
      * @return JsonResponse
@@ -67,13 +105,34 @@ class CourseAreaController extends AbstractController
     {
         return $this->json([
             'data' => [
-                'area' => $this->toArray($this->courseAreaRepository->find($id))
+                'area' => $this->toArray($this->courseAreaRepository->find($id), [
+                    'courses', 'technologies'
+                ])
             ]
         ]);
     }
 
     /**
      * @Route("", name="add", methods={"POST"})
+     * @OA\RequestBody(
+     *     @OA\JsonContent(
+     *          type="object",
+     *          ref="#/components/schemas/Course Area Edit"
+     *     )
+     * )
+     * @OA\Response(
+     *     response="201",
+     *     description="Course area has been created",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(
+     *             type="object",
+     *             property="data",
+     *             @OA\Property(property="area", type="object", ref="#/components/schemas/Course Area")
+     *         )
+     *     )
+     * )
+     * @OA\Tag(name="Course Areas")
      *
      * @param Request $request
      * @return JsonResponse
@@ -98,6 +157,30 @@ class CourseAreaController extends AbstractController
 
     /**
      * @Route("/{id}", name="edit", methods={"PUT"})
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Identifier of the course area",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\RequestBody(
+     *     @OA\JsonContent(
+     *          type="object",
+     *          ref="#/components/schemas/Course Area Edit"
+     *     )
+     * )
+     * @OA\Response(
+     *     response="200",
+     *     description="Course area has been updated",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(
+     *             property="data",
+     *             @OA\Property(property="area", type="object", ref="#/components/schemas/Course Area")
+     *         )
+     *     )
+     * )
+     * @OA\Tag(name="Course Areas")
      *
      * @param Request $request
      * @param int $id
@@ -124,6 +207,17 @@ class CourseAreaController extends AbstractController
 
     /**
      * @Route("/{id}", name="remove", methods={"DELETE"})
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Identifier of the course",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Response(
+     *     response="204",
+     *     description="Course area has been deleted",
+     * )
+     * @OA\Tag(name="Course Areas")
      *
      * @param int $id
      * @return JsonResponse
@@ -138,8 +232,10 @@ class CourseAreaController extends AbstractController
         return $this->json([], Response::HTTP_NO_CONTENT);
     }
 
-    private function toArray(CourseArea $area): array
+    private function toArray(CourseArea $area, array $with = []): array
     {
-        return (new CourseAreaFormatter($area))->toArrayFormat();
+        return (new CourseAreaFormatter($area))
+            ->with(...$with)
+            ->toArrayFormat();
     }
 }

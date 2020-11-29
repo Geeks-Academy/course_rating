@@ -8,7 +8,7 @@ final class CourseDictionary extends AbstractDictionary
 {
     public const ID = 'id';
 
-    public const REPOSITORY_URL = 'repository_url';
+    public const REPOSITORY_URL = 'repositoryUrl';
 
     public const LANGUAGE = 'language';
 
@@ -20,13 +20,13 @@ final class CourseDictionary extends AbstractDictionary
 
     public const NAME = 'name';
 
-    public const RELEASE_DATE = 'release_date';
+    public const RELEASE_DATE = 'releaseDate';
 
     public const URL = 'url';
 
     public const DURATION = 'duration';
 
-    public const IS_REVIEWED = 'is_reviewed';
+    public const IS_REVIEWED = 'isReviewed';
 
     public const AREAS = 'areas';
 }

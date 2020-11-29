@@ -1,16 +1,29 @@
 # Include base
 source $(dirname $0)/_base.sh
+source $(dirname $0)/_paths.sh
+
+declare -a arguments
+declare -A options
+declare -A schema=(
+  ["--no-cache"]=0
+  ["--env"]=1
+  ["--skip-migrations"]=0
+  ["--skip-composer"]=0
+)
+
+# Load options and args
+getOptions schema options arguments $@
+
+if inMap options "--env" ; then
+  APP_ENV=${options["--env"]}
+else
+  APP_ENV="dev"
+fi
 
 cd $ROOT_PATH
 
 # Start container
 docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml up -d
-
-# Initialize database
-docker-compose exec -T api php bin/console doctrine:database:create --if-not-exists
-
-# Initialize migrations
-docker-compose exec -T api php bin/console doctrine:schema:update --force
 
 # Execute tests
 docker-compose exec -T api ./vendor/bin/simple-phpunit

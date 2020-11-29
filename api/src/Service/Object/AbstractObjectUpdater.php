@@ -49,10 +49,9 @@ abstract class AbstractObjectUpdater
     /**
      * This is a place where you can modify data before any action execute
      *
-     * @param object $entity
      * @param array $data
      */
-    protected function preUpdateObjectHook(object $entity, array &$data) {}
+    protected function preUpdateObjectHook(array &$data) {}
 
     /**
      * @return object
@@ -62,7 +61,7 @@ abstract class AbstractObjectUpdater
     {
         $data = $this->getData();
 
-        $this->preUpdateObjectHook($this->object, $data);
+        $this->preUpdateObjectHook($data);
 
         $this->objectSetterDataToObject($this->object, $data);
 

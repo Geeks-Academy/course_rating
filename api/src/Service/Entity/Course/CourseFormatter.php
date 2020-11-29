@@ -42,6 +42,7 @@ class CourseFormatter extends AbstractFormatter
             CourseDictionary::AUTHOR          => $this->course->getAuthor(),
             CourseDictionary::NAME            => $this->course->getName(),
             CourseDictionary::RELEASE_DATE    => $this->course->getReleaseDate(),
+            CourseDictionary::IS_REVIEWED     => $this->course->getIsReviewed(),
             CourseDictionary::URL             => $this->course->getUrl(),
             CourseDictionary::DURATION        => $this->course->getDuration(),
             CourseDictionary::AREAS           => fn() => $this->areasToArray(),

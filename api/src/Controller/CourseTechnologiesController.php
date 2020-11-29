@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use OpenApi\Annotations as OA;
 
 /**
  * @Route("/api/course-technologies", name="api_course_technologies_")
@@ -48,6 +49,25 @@ class CourseTechnologiesController extends AbstractController
 
     /**
      * @Route("/{id}", name="find", methods={"GET"})
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Identifier of the course technology",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Response(
+     *     response="200",
+     *     description="Course technology has been found",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(
+     *             property="data",
+     *             @OA\Property(property="technology", type="object", ref="#/components/schemas/Course Technology")
+     *         )
+     *     )
+     * )
+     * @OA\Tag(name="Course Technologies")
+     *
      * @param int $id
      * @return JsonResponse
      */
@@ -55,7 +75,7 @@ class CourseTechnologiesController extends AbstractController
     {
         return $this->json([
             'data' => [
-                'course' => $this->toArray(
+                'technology' => $this->toArray(
                     $this->courseTechnologyRepository->find($id))
 
             ]
@@ -64,6 +84,26 @@ class CourseTechnologiesController extends AbstractController
 
     /**
      * @Route("", name="list", methods={"GET"})
+     * @OA\Response(
+     *     response="200",
+     *     description="Course technologies has been fetched",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(
+     *             type="object",
+     *             property="data",
+     *             @OA\Property(
+     *                 type="array",
+     *                 property="technologies",
+     *                 @OA\Items(
+     *                     ref="#/components/schemas/Course Technology"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     * @OA\Tag(name="Course Technologies")
+     *
      * @return JsonResponse
      */
     public function courseTechnologiesList(): JsonResponse
@@ -72,7 +112,7 @@ class CourseTechnologiesController extends AbstractController
 
         return $this->json([
             'data' => [
-                'courses' => array_map(
+                'technologies' => array_map(
                     fn(CourseTechnology $technology) => $this->toArray($technology), $technologies
                 )
             ]
@@ -81,6 +121,26 @@ class CourseTechnologiesController extends AbstractController
 
     /**
      * @Route("", name="add", methods={"POST"})
+     * @OA\RequestBody(
+     *     @OA\JsonContent(
+     *          type="object",
+     *          ref="#/components/schemas/Course Technology Edit"
+     *     )
+     * )
+     * @OA\Response(
+     *     response="201",
+     *     description="Course technology has been created",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(
+     *             type="object",
+     *             property="data",
+     *             @OA\Property(property="technology", type="object", ref="#/components/schemas/Course Technology")
+     *         )
+     *     )
+     * )
+     * @OA\Tag(name="Course Technologies")
+     *
      * @param Request $request
      * @return JsonResponse
      * @throws ValidationException
@@ -97,13 +157,38 @@ class CourseTechnologiesController extends AbstractController
 
         return $this->json([
             'data' => [
-                'course' => $this->toArray($technology)
+                'technology' => $this->toArray($technology)
             ]
         ], Response::HTTP_CREATED);
     }
 
     /**
      * @Route("/{id}", name="edit", methods={"PUT"})
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Identifier of the course technology",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\RequestBody(
+     *     @OA\JsonContent(
+     *          type="object",
+     *          ref="#/components/schemas/Course Technology Edit"
+     *     )
+     * )
+     * @OA\Response(
+     *     response="200",
+     *     description="Course technology are has been updated",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(
+     *             property="data",
+     *             @OA\Property(property="technology", type="object", ref="#/components/schemas/Course Technology")
+     *         )
+     *     )
+     * )
+     * @OA\Tag(name="Course Technologies")
+     *
      * @param Request $request
      * @param int $id
      * @return JsonResponse
@@ -121,13 +206,25 @@ class CourseTechnologiesController extends AbstractController
 
         return $this->json([
             'data' => [
-                'course' => $this->toArray($technology)
+                'technology' => $this->toArray($technology)
             ]
         ]);
     }
 
     /**
      * @Route("/{id}", name="remove", methods={"DELETE"})
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Identifier of the course technology",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Response(
+     *     response="204",
+     *     description="Course technology has been deleted",
+     * )
+     * @OA\Tag(name="Course Technologies")
+     *
      * @param int $id
      * @return JsonResponse
      */
@@ -141,8 +238,10 @@ class CourseTechnologiesController extends AbstractController
         return $this->json([], Response::HTTP_NO_CONTENT);
     }
 
-    public function toArray(CourseTechnology $technology)
+    public function toArray(CourseTechnology $technology, array $with = [])
     {
-        return (new CourseTechnologyFormatter($technology))->toArrayFormat();
+        return (new CourseTechnologyFormatter($technology))
+            ->with(...$with)
+            ->toArrayFormat();
     }
 }
