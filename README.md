@@ -56,12 +56,12 @@ Allows you to quick setup development environment
 
 - Build images using
     ```
-    ./scripts/build.sh -e dev
+    ./scripts/build.sh --env dev [--skip-migrations] [--skip-composer] [container]
     ```
   
 - Start development server
     ```
-    ./scripts/start.sh -e dev
+    ./scripts/start.sh --env dev [container]
     ```
     > Website will be available on `localhost:APP_PORT` (host).
 
@@ -73,7 +73,7 @@ Allows you to quick setup development environment
 
     - If it's not running (without database access)
       ```
-      docker-compose -f docker-compose.yml -f docker-compose.dev.yml run --no-deps api /bin/bash
+      ./scripts/shell.sh --boot [--env value] api
       ```
 
     > If you want to stop the server, type

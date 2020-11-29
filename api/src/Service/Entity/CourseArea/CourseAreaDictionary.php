@@ -10,7 +10,7 @@ final class CourseAreaDictionary extends AbstractDictionary
 
     public const NAME = 'name';
 
-    public const IS_ACTIVE = 'is_active';
+    public const IS_ACTIVE = 'isActive';
 
     public const COURSES = 'courses';
 

@@ -6,6 +6,7 @@ use App\Service\Object\AbstractObjectBuilder;
 use DateTime;
 use DateTimeZone;
 use Exception;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class CourseBuilder extends AbstractObjectBuilder
 {
@@ -26,5 +27,16 @@ class CourseBuilder extends AbstractObjectBuilder
             CourseDictionary::URL             => '',
             CourseDictionary::DURATION        => '',
         ];
+    }
+
+    protected function preBuildObjectHook(array &$data)
+    {
+        try {
+            $data[CourseDictionary::RELEASE_DATE] = new DateTime($data[CourseDictionary::RELEASE_DATE]);
+        } catch (Exception $e) {
+            throw new BadRequestHttpException("Release date should be a correct date time string.");
+        }
+
+        $data[CourseDictionary::IS_REVIEWED] = false;
     }
 }

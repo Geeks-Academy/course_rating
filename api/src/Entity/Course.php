@@ -6,106 +6,126 @@ use App\Repository\CourseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CourseRepository::class)
  */
-class Course implements \JsonSerializable
+class Course
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"get", "update"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"get", "update"})
      */
     private $url;
 
     /**
      * @ORM\ManyToMany(targetEntity=CourseCharacteristic::class, inversedBy="courses")
+     * @Groups({"get_characteristics"})
      */
     private $characteristics;
 
     /**
      * @ORM\ManyToMany(targetEntity=CourseTranslation::class, inversedBy="courses")
+     * @Groups({"get_translations"})
      */
     private $translations;
 
     /**
      * @ORM\ManyToMany(targetEntity=CourseTechnology::class, inversedBy="courses")
+     * @Groups({"get_technologies"})
      */
     private $technologies;
 
     /**
      * @ORM\OneToMany(targetEntity=CourseRating::class, mappedBy="course")
+     * @Groups({"get_ratings"})
      */
     private $ratings;
 
     /**
      * @ORM\OneToMany(targetEntity=CourseSource::class, mappedBy="course")
+     * @Groups({"get_sources"})
      */
     private $sources;
 
     /**
      * @ORM\Column(type="string", length=45)
+     * @Groups({"get", "update"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=45)
+     * @Groups({"get", "update"})
      */
     private $author;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"get", "update"})
      */
-    private $release_date;
+    private $releaseDate;
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
+     * @Groups({"get", "update"})
      */
     private $duration;
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
+     * @Groups({"get", "update"})
      */
     private $language;
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
+     * @Groups({"get", "update"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"get", "update"})
      */
-    private $repository_url;
+    private $repositoryUrl;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"get"})
      */
     private $isReviewed;
 
     /**
      * @ORM\ManyToMany(targetEntity=CourseCategory::class, inversedBy="courses")
+     * @Groups({"get_categories"})
      */
     private $categories;
 
     /**
      * @ORM\ManyToOne(targetEntity=CourseLevel::class, inversedBy="courses")
+     * @Groups({"get_level"})
      */
     private $level;
 
     /**
      * @ORM\ManyToMany(targetEntity=CourseArea::class, mappedBy="courses")
+     * @Groups({"get_areas"})
      */
     private $areas;
 
@@ -315,12 +335,12 @@ class Course implements \JsonSerializable
 
     public function getReleaseDate(): ?\DateTimeInterface
     {
-        return $this->release_date;
+        return $this->releaseDate;
     }
 
-    public function setReleaseDate(?\DateTimeInterface $release_date): self
+    public function setReleaseDate(?\DateTimeInterface $releaseDate): self
     {
-        $this->release_date = $release_date;
+        $this->releaseDate = $releaseDate;
 
         return $this;
     }
@@ -363,12 +383,12 @@ class Course implements \JsonSerializable
 
     public function getRepositoryUrl(): ?string
     {
-        return $this->repository_url;
+        return $this->repositoryUrl;
     }
 
-    public function setRepositoryUrl(string $repository_url): self
+    public function setRepositoryUrl(string $repositoryUrl): self
     {
-        $this->repository_url = $repository_url;
+        $this->repositoryUrl = $repositoryUrl;
 
         return $this;
     }
@@ -383,28 +403,6 @@ class Course implements \JsonSerializable
         $this->isReviewed = $isReviewed;
 
         return $this;
-    }
-
-    public function jsonSerialize()
-    {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'author' => $this->author,
-            'name' => $this->name,
-            'url' => $this->url,
-            'release_date' => $this->release_date,
-            'duration' => $this->duration,
-            'language' => $this->language,
-            'isReviewed' => $this->isReviewed,
-            'repository_url' => $this->repository_url,
-            'price' => $this->price,
-        ];
-    }
-
-    public function getData()
-    {
-        return $this->jsonSerialize();
     }
 
     /**

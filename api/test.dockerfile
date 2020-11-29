@@ -2,7 +2,7 @@ FROM php:7.4.4-fpm
 
 WORKDIR /var/www
 
-COPY --from=composer:1.9 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 
 RUN apt update && apt install -y zip unzip wget zlib1g-dev libicu-dev
 

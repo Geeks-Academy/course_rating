@@ -71,10 +71,9 @@ abstract class AbstractObjectBuilder
     /**
      * This is a place where you can change data before any action execute
      *
-     * @param object $entity
      * @param array $data
      */
-    protected function preBuildObjectHook(object $entity, array &$data) {}
+    protected function preBuildObjectHook(array &$data) {}
 
     /**
      * @throws ValidationException
@@ -90,7 +89,7 @@ abstract class AbstractObjectBuilder
 
         $data = $this->getData();
 
-        $this->preBuildObjectHook($this->object, $data);
+        $this->preBuildObjectHook($data);
 
         $this->objectSetterDataToObject($this->object, $data);
 

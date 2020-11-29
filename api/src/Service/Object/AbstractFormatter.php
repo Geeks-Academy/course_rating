@@ -20,7 +20,7 @@ abstract class AbstractFormatter
     private function allowsLazyLoading(string $relation, array $with): bool
     {
         foreach ($with as $index => $relations) {
-            if($relations[0] === $relation) {
+            if(count($relations) > 0 && $relations[0] === $relation) {
                 return true;
             }
         }

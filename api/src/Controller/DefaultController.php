@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/api", name="api_welcome")
+     * @Route("/api", name="api_welcome", methods={"GET"})
      */
     public function welcome(): Response
     {
@@ -22,7 +22,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/api/health", name="api_health")
+     * @Route("/api/health", name="api_health", methods={"GET"})
      */
     public function health(): Response
     {
