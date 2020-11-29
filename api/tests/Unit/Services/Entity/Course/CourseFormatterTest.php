@@ -15,21 +15,21 @@ class CourseFormatterTest extends UnitTestCase
             ->with('areas', 'areas.courses')
             ->with('areas.courses')
             ->skip('name')
-            ->skip('areas.name', 'areas.courses.repository_url')
+            ->skip('areas.name', 'areas.courses.repositoryUrl')
             ->toArrayFormat();
 
         $this->assertFalse(key_exists('name', $data));
         $this->assertEquals('author', $data['author']);
-        $this->assertEquals('test_url', $data['repository_url']);
+        $this->assertEquals('test_url', $data['repositoryUrl']);
         $this->assertEquals(10, $data['duration']);
-        $this->assertEquals(true, $data['areas'][0]['is_active']);
-        $this->assertEquals(false, $data['areas'][1]['is_active']);
+        $this->assertEquals(true, $data['areas'][0]['isActive']);
+        $this->assertEquals(false, $data['areas'][1]['isActive']);
         $this->assertFalse(isset($data['areas'][0]['name']));
         $this->assertFalse(isset($data['areas'][1]['name']));
         $this->assertEquals('author', $data['areas'][0]['courses'][0]['author']);
         $this->assertEquals('author', $data['areas'][1]['courses'][0]['author']);
-        $this->assertFalse(isset($data['areas'][0]['courses'][0]['repository_url']));
-        $this->assertFalse(isset($data['areas'][1]['courses'][0]['repository_url']));
+        $this->assertFalse(isset($data['areas'][0]['courses'][0]['repositoryUrl']));
+        $this->assertFalse(isset($data['areas'][1]['courses'][0]['repositoryUrl']));
         $this->assertEmpty($data['areas'][0]['courses'][0]['areas']);
     }
 

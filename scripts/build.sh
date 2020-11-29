@@ -11,6 +11,7 @@ declare -A schema=(
   ["--env"]=1
   ["--skip-migrations"]=0
   ["--skip-composer"]=0
+  ["--fresh"]=0
 )
 
 # Load options and args
@@ -40,6 +41,12 @@ else
   SKIP_COMPOSER=0
 fi
 
+if inMap options "--fresh" ; then
+  FRESH=1
+else
+  FRESH=0
+fi
+
 # Create configuration
 echo "Copying configuration for $APP_ENV environment"
 
@@ -63,6 +70,10 @@ fi
 
 cd $ROOT_PATH
 
+if isTrue $FRESH ; then
+  docker-compose rm -f
+fi
+
 # Download containers
 docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml pull
 
@@ -81,6 +92,10 @@ fi
 # Initialize containers
 docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml up -d
 
+# Clear api cache
+docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml exec \
+  api bin/console cache:clear
+
 # Install composer if run as development
 if [ $APP_ENV == 'dev' ] && isFalse $SKIP_COMPOSER ; then
     docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml exec \
@@ -90,7 +105,7 @@ fi
 # Run migrations if run as development
 if [ $APP_ENV == 'dev' ] && isFalse $SKIP_MIGRATIONS ; then
     docker-compose -f docker-compose.yml -f docker-compose.$APP_ENV.yml exec \
-      api bin/console doctrine:migrations:migrate -n
+      api bin/console doctrine:schema:update --force
 fi
 
 # Halt containers

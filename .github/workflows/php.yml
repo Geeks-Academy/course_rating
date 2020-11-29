@@ -17,18 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Copy default .env.example.test
-      run: cp .env.test.example .env
-
-    - name: Download docker images
-      run: docker-compose -f docker-compose.yml -f docker-compose.test.yml pull
-
     - uses: satackey/action-docker-layer-caching@v0.0.8
       # Ignore the failure of a step and avoid terminating the job.
       continue-on-error: true
 
     - name: Build services and initially validate them
-      run: ./scripts/build.sh -e test
+      run: ./scripts/build.sh --env test
 
     - name: Run tests
-      run: ./scripts/test.sh -e test
+      run: ./scripts/test.sh --env test
